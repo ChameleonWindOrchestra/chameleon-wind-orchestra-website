@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>カメレオン吹奏楽団 — Print</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAF7F2;
+      --bg-soft: #F5EFE6;
+      --bg-card: #FFFEFB;
+      --ink: #1F1A14;
+      --ink-2: #3B342A;
+      --ink-3: #5C5142;
+      --ink-mute: #8A7F6E;
+      --line: #E5DCCB;
+      --line-soft: #EFE7D6;
+      --accent: #C8631F;
+      --accent-deep: #A24F18;
+      --accent-soft: #E5A56A;
+      --brown: #4A3525;
+      --brown-deep: #2E1F13;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Noto Sans JP", system-ui, sans-serif; -webkit-font-smoothing: antialiased; letter-spacing: 0.04em; }
+    .serif { font-family: "Noto Serif JP", serif; font-weight: 500; letter-spacing: 0.05em; }
+    .eng { font-family: "Cormorant Garamond", serif; font-style: normal; letter-spacing: 0.18em; }
+    .mono { font-family: "JetBrains Mono", monospace; letter-spacing: 0.14em; }
+    button { font-family: inherit; }
+    a { color: inherit; }
+
+    /* ====== Print preview / on-screen layout ====== */
+    .print-root { width: 1280px; margin: 0 auto; }
+    .print-page { background: var(--bg); position: relative; padding-top: 36px; padding-bottom: 80px; }
+    .print-page-label {
+      position: absolute; top: 12px; left: 80px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; letter-spacing: 0.18em;
+      color: var(--ink-mute); text-transform: uppercase;
+      z-index: 50;
+    }
+
+    /* ====== Print rules ====== */
+    @page {
+      size: 1280px 1800px;
+      margin: 0;
+    }
+    @media print {
+      html, body { background: var(--bg); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .print-root { width: 1280px; margin: 0; }
+      .print-page {
+        page-break-before: always;
+        break-before: page;
+        page-break-after: auto;
+        padding-top: 24px;
+      }
+      .print-page:first-child {
+        page-break-before: auto;
+        break-before: auto;
+      }
+      .print-page-label { display: none; }
+      /* Avoid splitting key elements awkwardly */
+      img, figure, article, .keep-together {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      /* Remove any sticky/fixed positioning on header */
+      header, .site-header, [data-header] {
+        position: static !important;
+      }
+      /* Disable transitions/animations */
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="site-shell.jsx"></script>
+  <script type="text/babel" src="site-pages.jsx"></script>
+  <script type="text/babel" src="site-print-app.jsx"></script>
+</body>
+</html>
