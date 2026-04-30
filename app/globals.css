@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background — 生成り・紙白 */
+  --bg: #faf7f2;
+  --bg-soft: #f5efe6;
+  --bg-card: #fffefb;
+
+  /* Ink — 文字・前景 */
+  --ink: #1f1a14;
+  --ink-2: #3b342a;
+  --ink-3: #5c5142;
+  --ink-mute: #8a7f6e;
+
+  /* Line — 罫線 */
+  --line: #e5dccb;
+  --line-soft: #efe7d6;
+
+  /* Accent — 柿渋（メインアクセント） */
+  --accent: #c8631f;
+  --accent-deep: #a24f18;
+  --accent-soft: #e5a56a;
+
+  /* Brown — 焦茶（深い背景・濃い見出し） */
+  --brown: #4a3525;
+  --brown-deep: #2e1f13;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-bg-card: var(--bg-card);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-mute: var(--ink-mute);
+
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-brown: var(--brown);
+  --color-brown-deep: var(--brown-deep);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
 }
