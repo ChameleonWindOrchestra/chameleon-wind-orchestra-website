@@ -1,7 +1,12 @@
+import Image from "next/image";
+import { Placeholder } from "@/components/ui/Placeholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TextLink } from "@/components/ui/TextLink";
+import { getPreviewMembers } from "@/lib/data/members";
 
 export function MembersSection() {
+  const items = getPreviewMembers(4);
+
   return (
     <section className="bg-bg-soft px-8 py-24 md:px-20 md:py-[120px]">
       <div className="mx-auto max-w-[1280px]">
@@ -10,16 +15,42 @@ export function MembersSection() {
           <TextLink href="/members">Members 一覧</TextLink>
         </div>
 
-        <div className="border border-line bg-bg-card px-8 py-20 text-center">
-          <div className="font-eng mb-4 text-[12px] uppercase tracking-[0.22em] text-accent">
-            Coming Soon
-          </div>
-          <p className="font-serif m-0 text-[18px] leading-[1.9] text-ink">
-            団員紹介ページは現在準備中です
-          </p>
-          <p className="mx-auto mt-4 max-w-md text-[13px] leading-[1.9] text-ink-3">
-            指揮者・木管・金管・打楽器の各パートで活動するメンバーを、近日公開予定です。
-          </p>
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          {items.map((m) => (
+            <article
+              key={m.id}
+              className="border border-line bg-bg-card"
+            >
+              {m.portraitSrc ? (
+                <div className="relative aspect-[4/5]">
+                  <Image
+                    src={m.portraitSrc}
+                    alt={m.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <Placeholder ratio="4/5" label="portrait" />
+              )}
+
+              <div className="px-6 pb-6 pt-5">
+                <div className="font-eng mb-2.5 text-[11px] uppercase tracking-[0.18em] text-accent">
+                  {m.part}
+                </div>
+                <div className="font-serif text-[15px] font-medium leading-[1.5] text-ink">
+                  {m.name}
+                </div>
+                <div className="font-mono mt-1 text-[10px] text-ink-mute">
+                  {m.kana}
+                </div>
+                {m.role && (
+                  <div className="mt-2 text-[11px] text-ink-3">{m.role}</div>
+                )}
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
