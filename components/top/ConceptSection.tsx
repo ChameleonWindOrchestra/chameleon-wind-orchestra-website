@@ -2,8 +2,8 @@ import { TextLink } from "@/components/ui/TextLink";
 
 export function ConceptSection() {
   return (
-    <section className="bg-bg pt-22 pb-24 px-20 border-b border-line">
-      <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-20 items-start">
+    <section className="bg-bg pt-16 pb-20 px-6 md:pt-22 md:pb-24 md:px-20 border-b border-line">
+      <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
         <div className="font-eng text-[14px] text-accent uppercase tracking-[0.22em] pt-2">
           — Concept
         </div>
