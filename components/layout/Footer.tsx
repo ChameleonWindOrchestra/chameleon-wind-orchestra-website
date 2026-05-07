@@ -35,9 +35,9 @@ const COLUMNS: FooterColumn[] = [
 
 export function Footer() {
   return (
-    <footer className="bg-brown-deep text-[#e8ddc9] mt-30 px-20 pt-22 pb-9">
+    <footer className="bg-brown-deep text-[#e8ddc9] mt-30 px-6 pt-16 pb-9 md:px-20 md:pt-22">
       <div className="max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-16 mb-18">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 sm:gap-12 md:gap-16 mb-12 md:mb-18">
           <div>
             <Image
               src="/assets/logo-horizontal.png"

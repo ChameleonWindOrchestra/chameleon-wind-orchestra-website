@@ -15,12 +15,12 @@ export function HeroSection() {
           aria-hidden="true"
         />
 
-        <div className="absolute inset-0 flex items-center px-24 pointer-events-none">
+        <div className="absolute inset-0 flex items-center px-6 sm:px-12 lg:px-24 pointer-events-none">
           <div className="max-w-[560px] text-bg-card">
-            <div className="font-mono text-[11px] text-accent-soft mb-7 tracking-[0.22em]">
+            <div className="font-mono text-[10px] sm:text-[11px] text-accent-soft mb-5 sm:mb-7 tracking-[0.22em]">
               CHAMELEON WIND ORCHESTRA · EST. 2025
             </div>
-            <h1 className="font-serif font-medium m-0 leading-[1.4] tracking-[0.05em] text-[clamp(40px,5.2vw,72px)]">
+            <h1 className="font-serif font-medium m-0 leading-[1.4] tracking-[0.05em] text-[clamp(32px,7vw,72px)]">
               色彩豊かに、
               <br />
               響きを<span className="text-accent-soft">纏う</span>。
