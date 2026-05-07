@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { Concert } from "@/lib/data/concerts";
 
@@ -51,19 +50,6 @@ export function FeaturedHero({ concert }: Props) {
               </div>
             ))}
           </dl>
-
-          {concert.applyHref && (
-            <div className="mt-9">
-              <Button
-                variant="primary"
-                size="lg"
-                icon
-                href={concert.applyHref}
-              >
-                整理券を申し込む
-              </Button>
-            </div>
-          )}
         </div>
 
         {concert.flyer && (
