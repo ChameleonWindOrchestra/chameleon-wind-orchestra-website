@@ -12,7 +12,7 @@ const COLUMNS: FooterColumn[] = [
       { label: "News", href: "/news" },
       { label: "Members", href: "/members" },
       { label: "Concerts", href: "/concerts" },
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "/#contact" },
     ],
   },
   {

@@ -59,3 +59,13 @@ body {
     var(--font-noto-sans-jp), "Noto Sans JP", system-ui, sans-serif;
   letter-spacing: 0.04em;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+section[id] {
+  scroll-margin-top: 96px;
+}

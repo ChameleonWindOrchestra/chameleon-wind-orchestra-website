@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { href: "/concerts", jp: "Concerts", en: "concerts" },
   { href: "/news", jp: "News", en: "news" },
   { href: "/members", jp: "Members", en: "members" },
-  { href: "/contact", jp: "Contact", en: "contact" },
+  { href: "/#contact", jp: "Contact", en: "contact" },
 ] as const;
 
 function isActive(pathname: string, href: string) {
