@@ -4,6 +4,7 @@ import { FeaturedConcertSection } from "@/components/top/FeaturedConcertSection"
 import { FollowSection } from "@/components/top/FollowSection";
 import { NewsSection } from "@/components/top/NewsSection";
 import { MembersSection } from "@/components/top/MembersSection";
+import { ContactSection } from "@/components/top/ContactSection";
 
 export default function Home() {
   return (
@@ -14,19 +15,7 @@ export default function Home() {
       <FollowSection />
       <NewsSection />
       <MembersSection />
-      <section className="px-8 py-32 max-w-[1280px] mx-auto text-center">
-        <div className="font-eng text-[14px] text-accent uppercase tracking-[0.22em] mb-5">
-          — Coming Soon
-        </div>
-        <p className="text-sm text-ink-3 leading-loose max-w-md mx-auto">
-          最後のセクション（Contact）は
-          <br />
-          T-07 で実装予定です。
-        </p>
-        <p className="font-mono text-[10px] text-ink-mute uppercase tracking-[0.18em] mt-12">
-          chameleon wind orchestra · est. 2025
-        </p>
-      </section>
+      <ContactSection />
     </>
   );
 }
