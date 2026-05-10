@@ -9,7 +9,6 @@ const COLUMNS: FooterColumn[] = [
     heading: "Menu",
     items: [
       { label: "TOP", href: "/" },
-      { label: "About", href: "/about" },
       { label: "News", href: "/news" },
       { label: "Members", href: "/members" },
       { label: "Concerts", href: "/concerts" },
