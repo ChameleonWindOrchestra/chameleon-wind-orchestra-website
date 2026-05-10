@@ -31,9 +31,10 @@ export function NewsSection() {
                     <Image
                       src="/assets/logo-horizontal.png"
                       alt=""
-                      width={170}
-                      height={40}
-                      className="h-9 w-auto opacity-50 md:h-10"
+                      width={340}
+                      height={80}
+                      sizes="(max-width: 640px) 60vw, (max-width: 768px) 30vw, 20vw"
+                      className="h-14 w-auto opacity-50 md:h-20"
                     />
                   </div>
                 )}
