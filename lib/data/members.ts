@@ -4,46 +4,42 @@ export type Member = {
   id: string;
   part: MemberPart;
   name: string;
-  kana: string;
+  kana?: string;
   role?: string;
+  instrument?: string;
   portraitSrc: string | null;
+  order?: number;
 };
 
 export const placeholderMembers: Member[] = [
   {
-    id: "placeholder-conductor",
-    part: "Conductor",
+    id: "placeholder-director",
+    role: "団長",
     name: "Coming Soon",
-    kana: "近日公開",
-    portraitSrc: null,
-  },
-  {
-    id: "placeholder-woodwind",
-    part: "Woodwind",
-    name: "Coming Soon",
-    kana: "近日公開",
-    portraitSrc: null,
-  },
-  {
-    id: "placeholder-brass",
     part: "Brass",
-    name: "Coming Soon",
-    kana: "近日公開",
+    instrument: "Coming Soon",
     portraitSrc: null,
+    order: 1,
   },
   {
-    id: "placeholder-percussion",
-    part: "Percussion",
+    id: "placeholder-conductor",
+    role: "指揮者",
     name: "Coming Soon",
-    kana: "近日公開",
+    part: "Conductor",
+    instrument: "—",
     portraitSrc: null,
+    order: 2,
   },
 ];
 
-export function getPreviewMembers(n: number): Member[] {
-  return placeholderMembers.slice(0, n);
+export function getFeaturedMembers(): Member[] {
+  return [...placeholderMembers].sort(
+    (a, b) => (a.order ?? 999) - (b.order ?? 999),
+  );
 }
 
 export function getAllMembers(): Member[] {
-  return placeholderMembers;
+  return [...placeholderMembers].sort(
+    (a, b) => (a.order ?? 999) - (b.order ?? 999),
+  );
 }

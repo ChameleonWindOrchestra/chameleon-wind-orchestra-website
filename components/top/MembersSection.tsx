@@ -2,10 +2,10 @@ import Image from "next/image";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TextLink } from "@/components/ui/TextLink";
-import { getPreviewMembers } from "@/lib/data/members";
+import { getFeaturedMembers } from "@/lib/data/members";
 
 export function MembersSection() {
-  const items = getPreviewMembers(4);
+  const items = getFeaturedMembers();
 
   return (
     <section className="bg-bg-soft px-8 py-24 md:px-20 md:py-[120px]">
@@ -15,19 +15,16 @@ export function MembersSection() {
           <TextLink href="/members">Members 一覧</TextLink>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {items.map((m) => (
-            <article
-              key={m.id}
-              className="border border-line bg-bg-card"
-            >
+            <article key={m.id} className="border border-line bg-bg-card">
               {m.portraitSrc ? (
                 <div className="relative aspect-[4/5]">
                   <Image
                     src={m.portraitSrc}
                     alt={m.name}
                     fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                     className="object-cover"
                   />
                 </div>
@@ -36,21 +33,43 @@ export function MembersSection() {
               )}
 
               <div className="px-6 pb-6 pt-5">
-                <div className="font-eng mb-2.5 text-[11px] uppercase tracking-[0.18em] text-accent">
-                  {m.part}
-                </div>
-                <div className="font-serif text-[15px] font-medium leading-[1.5] text-ink">
+                {m.role && (
+                  <div className="font-eng mb-2.5 text-[11px] uppercase tracking-[0.18em] text-accent">
+                    {m.role}
+                  </div>
+                )}
+                <div className="font-serif text-[16px] font-medium leading-[1.5] text-ink">
                   {m.name}
                 </div>
-                <div className="font-mono mt-1 text-[10px] text-ink-mute">
-                  {m.kana}
-                </div>
-                {m.role && (
-                  <div className="mt-2 text-[11px] text-ink-3">{m.role}</div>
+                {m.kana && (
+                  <div className="font-mono mt-1 text-[10px] text-ink-mute">
+                    {m.kana}
+                  </div>
+                )}
+                {m.instrument && (
+                  <div className="mt-3 text-[12px] text-ink-3">
+                    担当: {m.instrument}
+                  </div>
                 )}
               </div>
             </article>
           ))}
+
+          <article
+            aria-hidden="true"
+            className="flex min-h-[280px] items-center justify-center border border-dashed border-line bg-bg px-6 py-12 sm:col-span-2 md:col-span-1"
+          >
+            <div className="text-center">
+              <div className="font-eng mb-3 text-[11px] uppercase tracking-[0.22em] text-accent">
+                More coming soon
+              </div>
+              <p className="font-serif m-0 text-[14px] leading-[1.8] text-ink">
+                他のメンバーも
+                <br />
+                順次ご紹介します
+              </p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
