@@ -18,12 +18,16 @@ const COLUMNS: FooterColumn[] = [
   {
     heading: "SNS",
     items: [
-      { label: "X (Twitter)" },
-      { label: "Instagram" },
-      { label: "YouTube" },
+      { label: "X (Twitter)", href: "https://x.com/chameleon_wind" },
+      { label: "Instagram", href: "https://www.instagram.com/chameleon_wind/" },
+      { label: "YouTube", href: "https://www.youtube.com/@chameleon_wind" },
     ],
   },
 ];
+
+function isExternal(href: string): boolean {
+  return /^https?:\/\//.test(href);
+}
 
 export function Footer() {
   return (
@@ -51,6 +55,12 @@ export function Footer() {
                     {item.href ? (
                       <Link
                         href={item.href}
+                        target={isExternal(item.href) ? "_blank" : undefined}
+                        rel={
+                          isExternal(item.href)
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
                         className="text-[12px] text-[#e8ddc9]/85 hover:text-[#e8ddc9] transition-colors"
                       >
                         {item.label}
