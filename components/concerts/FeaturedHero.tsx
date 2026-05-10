@@ -69,33 +69,35 @@ export function FeaturedHero({ concert }: Props) {
             </p>
           )}
 
-          {concert.program && concert.program.length > 0 && (
+          {concert.programs && concert.programs.length > 0 && (
             <div className="mt-10 border-t border-[rgba(232,221,201,0.2)] pt-8">
-              <div className="font-eng mb-4 text-[12px] uppercase tracking-[0.18em] text-accent-soft">
+              <div className="font-eng mb-5 text-[12px] uppercase tracking-[0.18em] text-accent-soft">
                 Program / 演奏曲目
               </div>
-              <ol className="m-0 list-none p-0">
-                {concert.program.map((p, i) => (
-                  <li
-                    key={`${i}-${p.title}`}
-                    className="grid grid-cols-[28px_1fr] items-baseline gap-3 border-b border-[rgba(232,221,201,0.15)] py-2.5"
-                  >
-                    <span className="font-eng text-[12px] tracking-[0.14em] text-accent-soft">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <div className="text-[15px] leading-[1.5]">
-                        {p.title}
-                      </div>
-                      {p.composer && (
-                        <div className="mt-0.5 text-[11px] text-[rgba(245,239,230,0.55)]">
-                          {p.composer}
-                        </div>
-                      )}
+              <div className="flex flex-col gap-7">
+                {concert.programs.map((section, i) => (
+                  <div key={`${i}-${section.title}`}>
+                    <div className="font-serif mb-3 text-[15px] tracking-[0.06em] text-accent-soft">
+                      {section.title}
                     </div>
-                  </li>
+                    <ol className="m-0 list-none p-0">
+                      {section.songs.map((song, j) => (
+                        <li
+                          key={`${j}-${song}`}
+                          className="grid grid-cols-[28px_1fr] items-baseline gap-3 border-b border-[rgba(232,221,201,0.15)] py-2.5"
+                        >
+                          <span className="font-eng text-[12px] tracking-[0.14em] text-accent-soft">
+                            {String(j + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-[15px] leading-[1.5]">
+                            {song}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
                 ))}
-              </ol>
+              </div>
             </div>
           )}
         </div>
@@ -108,7 +110,11 @@ export function FeaturedHero({ concert }: Props) {
                 alt={`${concert.title.replace(/\n/g, " ")} フライヤー`}
                 fill
                 sizes="(max-width: 768px) 100vw, 45vw"
-                className="object-contain"
+                className={
+                  concert.image.height >= concert.image.width
+                    ? "object-contain"
+                    : "object-cover"
+                }
               />
             </div>
           </div>

@@ -1,6 +1,6 @@
-export type ProgramItem = {
+export type ConcertProgramSection = {
   title: string;
-  composer?: string;
+  songs: string[];
 };
 
 export type ConcertImage = {
@@ -21,7 +21,7 @@ export type Concert = {
   fee?: number;
   note?: string;
   image?: ConcertImage;
-  program?: ProgramItem[];
+  programs?: ConcertProgramSection[];
   isFeaturedOverride?: boolean;
 };
 
@@ -44,8 +44,9 @@ export const concerts: Concert[] = [
     fee: 0,
     note: "入場無料・整理券は不要です。当日直接お越しください。",
     image: FLYER_1ST,
-    program: [
-      { title: "Coming Soon", composer: "—" },
+    programs: [
+      { title: "第1部", songs: ["Coming Soon"] },
+      { title: "第2部", songs: ["Coming Soon"] },
     ],
   },
   {
