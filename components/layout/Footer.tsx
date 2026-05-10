@@ -16,15 +16,7 @@ const COLUMNS: FooterColumn[] = [
     ],
   },
   {
-    heading: "Concerts",
-    items: [
-      { label: "第1回定期演奏会", href: "/concerts" },
-      { label: "出演履歴", href: "/concerts" },
-      { label: "次回出演予定", href: "/concerts" },
-    ],
-  },
-  {
-    heading: "Follow",
+    heading: "SNS",
     items: [
       { label: "X (Twitter)" },
       { label: "Instagram" },
@@ -37,20 +29,15 @@ export function Footer() {
   return (
     <footer className="bg-brown-deep text-[#e8ddc9] mt-30 px-6 pt-16 pb-9 md:px-20 md:pt-22">
       <div className="max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 sm:gap-12 md:gap-16 mb-12 md:mb-18">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr] gap-10 sm:gap-12 md:gap-16 mb-12 md:mb-18">
           <div>
             <Image
               src="/assets/logo-horizontal.png"
               alt="カメレオン吹奏楽団"
               width={237}
               height={56}
-              className="h-14 w-auto mb-6 brightness-105 saturate-[0.92]"
+              className="h-14 w-auto brightness-105 saturate-[0.92]"
             />
-            <p className="text-[12px] text-[#e8ddc9]/70 leading-loose max-w-80 m-0">
-              大阪・池田を拠点に活動するアマチュア吹奏楽団。
-              <br />
-              色彩豊かな音楽を、丁寧にお届けします。
-            </p>
           </div>
 
           {COLUMNS.map((col) => (
