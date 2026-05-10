@@ -32,6 +32,30 @@ export const placeholderNews: NewsItem[] = [
     imageSrc: null,
     href: "/news",
   },
+  {
+    id: "placeholder-4",
+    date: "—.—.—",
+    category: "Coming Soon",
+    title: "お知らせは現在準備中です",
+    imageSrc: null,
+    href: "/news",
+  },
+  {
+    id: "placeholder-5",
+    date: "—.—.—",
+    category: "Coming Soon",
+    title: "お知らせは現在準備中です",
+    imageSrc: null,
+    href: "/news",
+  },
+  {
+    id: "placeholder-6",
+    date: "—.—.—",
+    category: "Coming Soon",
+    title: "お知らせは現在準備中です",
+    imageSrc: null,
+    href: "/news",
+  },
 ];
 
 export function getLatestNews(n: number): NewsItem[] {
