@@ -1,11 +1,10 @@
 import Image from "next/image";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TextLink } from "@/components/ui/TextLink";
 import { getLatestNews } from "@/lib/data/news";
 
 export function NewsSection() {
-  const items = getLatestNews(3);
+  const items = getLatestNews(6);
 
   return (
     <section className="px-8 py-24 md:px-20 md:py-[120px]">
@@ -15,25 +14,30 @@ export function NewsSection() {
           <TextLink href="/news">News 一覧</TextLink>
         </div>
 
-        <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-3">
           {items.map((n) => (
-            <article
-              key={n.id}
-              className="border border-line bg-bg-card"
-            >
-              {n.imageSrc ? (
-                <div className="relative aspect-[3/2]">
+            <article key={n.id} className="border border-line bg-bg-card">
+              <div className="relative aspect-[3/2]">
+                {n.imageSrc ? (
                   <Image
                     src={n.imageSrc}
                     alt={n.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                     className="object-cover"
                   />
-                </div>
-              ) : (
-                <Placeholder ratio="3/2" label="news photo" />
-              )}
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-bg-soft">
+                    <Image
+                      src="/assets/logo-horizontal.png"
+                      alt=""
+                      width={170}
+                      height={40}
+                      className="h-9 w-auto opacity-50 md:h-10"
+                    />
+                  </div>
+                )}
+              </div>
 
               <div className="px-7 pb-8 pt-6">
                 <div className="mb-3.5 flex items-center gap-3">
