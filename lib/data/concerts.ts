@@ -27,8 +27,8 @@ export type Concert = {
 
 const FLYER_1ST: ConcertImage = {
   url: "/assets/flyer-1st.png",
-  width: 1080,
-  height: 1528,
+  width: 1980,
+  height: 1080,
 };
 
 export const concerts: Concert[] = [
