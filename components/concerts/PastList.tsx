@@ -1,5 +1,6 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { Concert } from "@/lib/data/concerts";
+import { formatJapaneseDate } from "@/lib/utils/date";
 
 type Props = {
   concerts: Concert[];
@@ -19,10 +20,10 @@ export function PastList({ concerts }: Props) {
             className="grid grid-cols-1 gap-2 border-t border-line py-6 md:grid-cols-[160px_1fr_1fr] md:items-center md:gap-8"
           >
             <span className="font-mono text-[12px] text-ink-mute">
-              {c.date}
+              {formatJapaneseDate(c.startAt)}
             </span>
             <span className="font-serif text-[15px] text-ink">{c.title}</span>
-            <span className="text-[12px] text-ink-3">{c.venue}</span>
+            <span className="text-[12px] text-ink-3">{c.place}</span>
           </li>
         ))}
       </ul>
