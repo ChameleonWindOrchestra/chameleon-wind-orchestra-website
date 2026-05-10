@@ -1,55 +1,89 @@
+export type ConcertProgramSection = {
+  title: string;
+  songs: string[];
+};
+
+export type ConcertImage = {
+  url: string;
+  width: number;
+  height: number;
+};
+
 export type Concert = {
   id: string;
-  numberLabel?: string;
-  date: string;
-  open?: string;
-  start?: string;
   title: string;
   subtitle?: string;
-  venue: string;
-  fee?: string;
-  isFeatured?: boolean;
-  isPast?: boolean;
-  flyer?: { src: string; alt: string };
-  detailHref?: string;
+  openAt: string | null;
+  startAt: string;
+  place: string;
+  placeUrl?: string;
+  mapUrl?: string;
+  fee?: number;
+  note?: string;
+  image?: ConcertImage;
+  programs?: ConcertProgramSection[];
+  isFeaturedOverride?: boolean;
+};
+
+const FLYER_1ST: ConcertImage = {
+  url: "/assets/flyer-1st.png",
+  width: 1980,
+  height: 1080,
 };
 
 export const concerts: Concert[] = [
   {
     id: "1st-regular",
-    numberLabel: "1st Regular Concert",
-    date: "2026.06.20 (土)",
-    open: "13:30",
-    start: "14:00",
     title: "第1回\n定期演奏会",
     subtitle: "ユニバーサル・スタジオ・ジャパンの音楽",
-    venue: "池田市民文化会館 アゼリアホール 大ホール",
-    fee: "入場無料",
-    isFeatured: true,
-    isPast: false,
-    flyer: { src: "/assets/flyer-1st.png", alt: "第1回定期演奏会フライヤー" },
-    detailHref: "/concerts",
+    openAt: "2026-06-20T13:30:00+09:00",
+    startAt: "2026-06-20T14:00:00+09:00",
+    place: "池田市民文化会館 アゼリアホール 大ホール",
+    placeUrl: "https://www.azaleahall.jp/",
+    mapUrl: "https://www.google.com/maps?q=池田市民文化会館+アゼリアホール",
+    fee: 0,
+    note: "入場無料・整理券は不要です。当日直接お越しください。",
+    image: FLYER_1ST,
+    programs: [
+      { title: "第1部", songs: ["Coming Soon"] },
+      { title: "第2部", songs: ["Coming Soon"] },
+    ],
   },
   {
     id: "past-spring-mini-2026",
-    date: "2026.01.18",
     title: "春のミニコンサート",
-    venue: "池田市民会館",
-    isPast: true,
+    openAt: null,
+    startAt: "2026-01-18T14:00:00+09:00",
+    place: "池田市民会館",
   },
   {
     id: "past-founding",
-    date: "2025.10.05",
     title: "結成記念演奏会",
-    venue: "池田市文化交流センター",
-    isPast: true,
+    openAt: null,
+    startAt: "2025-10-05T14:00:00+09:00",
+    place: "池田市文化交流センター",
   },
 ];
 
 export function getFeaturedConcert(): Concert | undefined {
-  return concerts.find((c) => c.isFeatured && !c.isPast);
+  const override = concerts.find((c) => c.isFeaturedOverride);
+  if (override) return override;
+  const now = Date.now();
+  const upcoming = concerts
+    .filter((c) => new Date(c.startAt).getTime() >= now)
+    .sort(
+      (a, b) =>
+        new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
+    );
+  return upcoming[0];
 }
 
 export function getPastConcerts(): Concert[] {
-  return concerts.filter((c) => c.isPast);
+  const now = Date.now();
+  return concerts
+    .filter((c) => new Date(c.startAt).getTime() < now)
+    .sort(
+      (a, b) =>
+        new Date(b.startAt).getTime() - new Date(a.startAt).getTime(),
+    );
 }
