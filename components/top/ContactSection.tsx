@@ -43,9 +43,7 @@ export function ContactSection() {
         <div>
           <SectionHeading num="— 05" en="Contact" jp="お問い合わせ" />
           <p className="mt-2 text-[14px] leading-[2.1] text-ink-3 md:text-[15px]">
-            演奏依頼、メディア取材、メンバー応募、その他ご質問など、
-            <br className="hidden md:block" />
-            どのようなご用件でもお気軽にどうぞ。通常 2〜3 営業日以内にご返信いたします。
+            演奏のご依頼やご相談など、お気軽にお問合せください。
           </p>
         </div>
 
