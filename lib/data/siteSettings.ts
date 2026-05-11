@@ -10,8 +10,6 @@ export type SnsLink = {
 
 export type YoutubeLatest = {
   embedUrl: string | null;
-  title: string;
-  publishedAt: string;
 };
 
 export type SiteSettings = {
@@ -22,8 +20,6 @@ export type SiteSettings = {
 export const siteSettings: SiteSettings = {
   youtubeLatest: {
     embedUrl: null,
-    title: "第1回定期演奏会 リハーサル風景",
-    publishedAt: "2026.04.12",
   },
   snsLinks: [
     {

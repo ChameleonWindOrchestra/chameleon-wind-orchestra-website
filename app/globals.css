@@ -52,12 +52,17 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
   font-family:
     var(--font-noto-sans-jp), "Noto Sans JP", system-ui, sans-serif;
   letter-spacing: 0.04em;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: no-preference) {
