@@ -8,14 +8,10 @@ export function FollowSection() {
   return (
     <section className="bg-bg-soft px-8 py-24 md:px-20 md:py-[120px]">
       <div className="mx-auto max-w-[1280px]">
-        <SectionHeading num="— 02" en="Follow" jp="活動の様子をお届け" />
+        <SectionHeading num="— 02" en="SNS" jp="ソーシャルメディア" />
 
         <div className="grid grid-cols-1 items-start gap-14 md:grid-cols-[1.5fr_1fr]">
           <div>
-            <div className="font-eng mb-[14px] text-[11px] uppercase tracking-[0.18em] text-accent">
-              Latest video
-            </div>
-
             <div className="relative w-full overflow-hidden border border-line bg-brown-deep aspect-video">
               {youtubeLatest.embedUrl ? (
                 <iframe
@@ -46,10 +42,6 @@ export function FollowSection() {
           </div>
 
           <div>
-            <div className="font-eng mb-[14px] text-[11px] uppercase tracking-[0.18em] text-accent">
-              SNS
-            </div>
-
             <div className="flex flex-col gap-3">
               {snsLinks.map((s) => (
                 <a
