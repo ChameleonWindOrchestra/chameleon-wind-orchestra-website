@@ -126,7 +126,7 @@ export function Header() {
         aria-modal="true"
         aria-label="モバイルナビゲーション"
         aria-hidden={!drawerOpen}
-        className={`fixed inset-0 z-[60] min-[900px]:hidden ${drawerOpen ? "" : "pointer-events-none"}`}
+        className={`fixed inset-0 z-[60] overflow-hidden min-[900px]:hidden ${drawerOpen ? "" : "pointer-events-none"}`}
       >
         <div
           aria-hidden="true"
