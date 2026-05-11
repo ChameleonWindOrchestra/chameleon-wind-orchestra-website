@@ -4,8 +4,8 @@ import { getFeaturedConcert } from "@/lib/data/concerts";
 import { formatJapaneseDate, formatTime } from "@/lib/utils/date";
 import { formatFee } from "@/lib/utils/fee";
 
-export function FeaturedConcertSection() {
-  const concert = getFeaturedConcert();
+export async function FeaturedConcertSection() {
+  const concert = await getFeaturedConcert();
   if (!concert) return null;
 
   const rows: { label: string; value: string }[] = [
@@ -76,19 +76,19 @@ export function FeaturedConcertSection() {
               </p>
             )}
 
-            {concert.programs && concert.programs.length > 0 && (
+            {concert.parts && concert.parts.length > 0 && (
               <div className="mt-10 border-t border-[rgba(232,221,201,0.2)] pt-8">
                 <div className="font-eng mb-5 text-[11px] uppercase tracking-[0.18em] text-accent-soft">
                   Program / 演奏曲目
                 </div>
                 <div className="flex flex-col gap-7">
-                  {concert.programs.map((section, i) => (
-                    <div key={`${i}-${section.title}`}>
+                  {concert.parts.map((part, i) => (
+                    <div key={`${i}-${part.title}`}>
                       <div className="font-serif mb-3 text-[14px] tracking-[0.06em] text-accent-soft">
-                        {section.title}
+                        {part.title}
                       </div>
                       <ol className="m-0 list-none p-0">
-                        {section.songs.map((song, j) => (
+                        {part.programs.map((song, j) => (
                           <li
                             key={`${j}-${song}`}
                             className="grid grid-cols-[28px_1fr] items-baseline gap-3 border-b border-[rgba(232,221,201,0.15)] py-2.5"

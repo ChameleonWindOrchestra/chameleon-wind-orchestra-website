@@ -1,13 +1,11 @@
-export type ConcertProgramSection = {
+import { getMicroCmsClient, type MicroCmsImage } from "@/lib/microcms";
+
+export type ConcertPart = {
   title: string;
-  songs: string[];
+  programs: string[];
 };
 
-export type ConcertImage = {
-  url: string;
-  width: number;
-  height: number;
-};
+export type ConcertImage = MicroCmsImage;
 
 export type Concert = {
   id: string;
@@ -21,69 +19,99 @@ export type Concert = {
   fee?: number;
   note?: string;
   image?: ConcertImage;
-  programs?: ConcertProgramSection[];
+  parts?: ConcertPart[];
   isFeaturedOverride?: boolean;
 };
 
-const FLYER_1ST: ConcertImage = {
-  url: "/assets/flyer-1st.png",
-  width: 1980,
-  height: 1080,
+type CmsConcertPart = {
+  fieldId?: string;
+  title: string;
+  programs?: Array<{ fieldId?: string; title: string }>;
 };
 
-export const concerts: Concert[] = [
-  {
-    id: "1st-regular",
-    title: "第1回\n定期演奏会",
-    subtitle: "ユニバーサル・スタジオ・ジャパンの音楽",
-    openAt: "2026-06-20T13:30:00+09:00",
-    startAt: "2026-06-20T14:00:00+09:00",
-    place: "池田市民文化会館 アゼリアホール 大ホール",
-    placeUrl: "https://www.azaleahall.jp/",
-    mapUrl: "https://www.google.com/maps?q=池田市民文化会館+アゼリアホール",
-    fee: 0,
-    note: "入場無料・整理券は不要です。当日直接お越しください。",
-    image: FLYER_1ST,
-    programs: [
-      { title: "第1部", songs: ["Coming Soon"] },
-      { title: "第2部", songs: ["Coming Soon"] },
-    ],
-  },
-  {
-    id: "past-spring-mini-2026",
-    title: "春のミニコンサート",
-    openAt: null,
-    startAt: "2026-01-18T14:00:00+09:00",
-    place: "池田市民会館",
-  },
-  {
-    id: "past-founding",
-    title: "結成記念演奏会",
-    openAt: null,
-    startAt: "2025-10-05T14:00:00+09:00",
-    place: "池田市文化交流センター",
-  },
-];
+type CmsConcert = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  title: string;
+  subTitle?: string;
+  openAt?: string | null;
+  startAt: string;
+  place: string;
+  placeUrl?: string;
+  mapUrl?: string;
+  fee?: number;
+  note?: string;
+  isFeaturedOverride?: boolean;
+  image?: MicroCmsImage;
+  parts?: CmsConcertPart[];
+};
 
-export function getFeaturedConcert(): Concert | undefined {
-  const override = concerts.find((c) => c.isFeaturedOverride);
-  if (override) return override;
-  const now = Date.now();
-  const upcoming = concerts
-    .filter((c) => new Date(c.startAt).getTime() >= now)
-    .sort(
-      (a, b) =>
-        new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
-    );
-  return upcoming[0];
+const ENDPOINT = "concerts";
+
+function mapCmsToConcert(cms: CmsConcert): Concert {
+  return {
+    id: cms.id,
+    title: cms.title,
+    subtitle: cms.subTitle,
+    openAt: cms.openAt ?? null,
+    startAt: cms.startAt,
+    place: cms.place,
+    placeUrl: cms.placeUrl,
+    mapUrl: cms.mapUrl,
+    fee: cms.fee,
+    note: cms.note,
+    image: cms.image,
+    isFeaturedOverride: cms.isFeaturedOverride,
+    parts: cms.parts?.map((p) => ({
+      title: p.title,
+      programs: (p.programs ?? []).map((prog) => prog.title),
+    })),
+  };
 }
 
-export function getPastConcerts(): Concert[] {
-  const now = Date.now();
-  return concerts
-    .filter((c) => new Date(c.startAt).getTime() < now)
-    .sort(
-      (a, b) =>
-        new Date(b.startAt).getTime() - new Date(a.startAt).getTime(),
-    );
+export async function getFeaturedConcert(): Promise<Concert | undefined> {
+  const client = getMicroCmsClient();
+
+  const overrideRes = await client.getList<CmsConcert>({
+    endpoint: ENDPOINT,
+    queries: {
+      filters: "isFeaturedOverride[equals]true",
+      limit: 1,
+    },
+  });
+  if (overrideRes.contents.length > 0) {
+    return mapCmsToConcert(overrideRes.contents[0]);
+  }
+
+  const nowIso = new Date().toISOString();
+  const upcomingRes = await client.getList<CmsConcert>({
+    endpoint: ENDPOINT,
+    queries: {
+      filters: `startAt[greater_than]${nowIso}`,
+      orders: "startAt",
+      limit: 1,
+    },
+  });
+  if (upcomingRes.contents.length > 0) {
+    return mapCmsToConcert(upcomingRes.contents[0]);
+  }
+
+  return undefined;
+}
+
+export async function getPastConcerts(): Promise<Concert[]> {
+  const client = getMicroCmsClient();
+  const nowIso = new Date().toISOString();
+  const res = await client.getList<CmsConcert>({
+    endpoint: ENDPOINT,
+    queries: {
+      filters: `startAt[less_than]${nowIso}`,
+      orders: "-startAt",
+      limit: 100,
+    },
+  });
+  return res.contents.map(mapCmsToConcert);
 }
