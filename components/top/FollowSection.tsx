@@ -1,4 +1,3 @@
-import { Placeholder } from "@/components/ui/Placeholder";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SnsIcon } from "@/components/ui/SnsIcon";
 import { getSiteSettings } from "@/lib/data/siteSettings";
@@ -21,46 +20,34 @@ export function FollowSection() {
               {youtubeLatest.embedUrl ? (
                 <iframe
                   src={youtubeLatest.embedUrl}
-                  title={youtubeLatest.title}
+                  title="最新動画"
                   className="absolute inset-0 h-full w-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
               ) : (
-                <>
-                  <Placeholder height="100%" label="YouTube embed · 練習風景動画" />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                  >
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-                      <svg
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="#fff"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 flex items-center justify-center"
+                >
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                    <svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="#fff"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                   </div>
-                </>
+                </div>
               )}
-            </div>
-
-            <div className="mt-4 flex items-baseline justify-between gap-4">
-              <span className="font-serif text-[14px] text-ink">
-                {youtubeLatest.title}
-              </span>
-              <span className="font-mono shrink-0 text-[11px] text-ink-mute">
-                {youtubeLatest.publishedAt}
-              </span>
             </div>
           </div>
 
           <div>
             <div className="font-eng mb-[14px] text-[11px] uppercase tracking-[0.18em] text-accent">
-              Social
+              SNS
             </div>
 
             <div className="flex flex-col gap-3">
