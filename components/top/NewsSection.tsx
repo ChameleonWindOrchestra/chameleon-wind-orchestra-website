@@ -29,12 +29,12 @@ export function NewsSection() {
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-bg-soft">
                     <Image
-                      src="/assets/logo-horizontal.png"
+                      src="/assets/logo_top.svg"
                       alt=""
-                      width={340}
-                      height={80}
-                      sizes="(max-width: 640px) 60vw, (max-width: 768px) 30vw, 20vw"
-                      className="h-14 w-auto opacity-50 md:h-20"
+                      width={457}
+                      height={170}
+                      unoptimized
+                      className="h-16 w-auto opacity-50 md:h-24"
                     />
                   </div>
                 )}

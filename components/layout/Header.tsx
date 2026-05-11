@@ -53,12 +53,13 @@ export function Header() {
         className="flex items-center"
       >
         <Image
-          src="/assets/logo-horizontal.png"
+          src="/assets/logo_top.svg"
           alt="カメレオン吹奏楽団"
-          width={170}
-          height={40}
+          width={457}
+          height={170}
           priority
-          className="h-8 w-auto md:h-10"
+          unoptimized
+          className="h-9 w-auto md:h-11"
         />
       </Link>
 
