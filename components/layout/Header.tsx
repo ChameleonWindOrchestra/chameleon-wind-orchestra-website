@@ -143,22 +143,19 @@ export function Header() {
             type="button"
             onClick={() => setDrawerOpen(false)}
             aria-label="メニューを閉じる"
-            className="flex h-[68px] shrink-0 items-center justify-end gap-3 border-b border-line px-6 text-ink-mute transition-colors hover:text-ink"
+            className="flex h-[68px] shrink-0 items-center justify-end border-b border-line px-6 text-ink-mute transition-colors hover:text-ink"
           >
-            <span className="font-eng text-[11px] uppercase tracking-[0.22em]">
-              Menu
-            </span>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
               fill="none"
               aria-hidden="true"
             >
               <path
-                d="M1 1L13 13M1 13L13 1"
+                d="M2 2L16 16M2 16L16 2"
                 stroke="currentColor"
-                strokeWidth="1.4"
+                strokeWidth="1.5"
                 strokeLinecap="round"
               />
             </svg>
