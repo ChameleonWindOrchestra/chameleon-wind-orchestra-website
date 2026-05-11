@@ -36,11 +36,12 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr] gap-10 sm:gap-12 md:gap-16 mb-12 md:mb-18">
           <div>
             <Image
-              src="/assets/logo-horizontal.png"
+              src="/assets/logo_top.svg"
               alt="カメレオン吹奏楽団"
-              width={237}
-              height={56}
-              className="h-14 w-auto brightness-105 saturate-[0.92]"
+              width={457}
+              height={170}
+              unoptimized
+              className="h-16 w-auto brightness-105 saturate-[0.92]"
             />
           </div>
 
