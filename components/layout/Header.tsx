@@ -139,11 +139,30 @@ export function Header() {
           aria-label="モバイルナビゲーション"
           className={`absolute inset-y-0 right-0 flex w-[82%] max-w-[360px] flex-col bg-bg shadow-2xl transition-transform duration-300 ${drawerOpen ? "translate-x-0" : "translate-x-full"}`}
         >
-          <div className="flex h-[68px] shrink-0 items-center justify-end border-b border-line px-6">
-            <span className="font-eng text-[11px] uppercase tracking-[0.22em] text-ink-mute">
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(false)}
+            aria-label="メニューを閉じる"
+            className="flex h-[68px] shrink-0 items-center justify-end gap-3 border-b border-line px-6 text-ink-mute transition-colors hover:text-ink"
+          >
+            <span className="font-eng text-[11px] uppercase tracking-[0.22em]">
               Menu
             </span>
-          </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M1 1L13 13M1 13L13 1"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
           <ul className="flex flex-1 flex-col gap-1 overflow-y-auto p-6">
             {NAV_ITEMS.map((item) => {
               const active = isActive(pathname, item.href);
