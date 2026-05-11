@@ -76,29 +76,36 @@ export async function FeaturedConcertSection() {
               </p>
             )}
 
-            {concert.parts && concert.parts.length > 0 && (
+            {concert.programs && concert.programs.length > 0 && (
               <div className="mt-10 border-t border-[rgba(232,221,201,0.2)] pt-8">
                 <div className="font-eng mb-5 text-[11px] uppercase tracking-[0.18em] text-accent-soft">
                   Program / 演奏曲目
                 </div>
                 <div className="flex flex-col gap-7">
-                  {concert.parts.map((part, i) => (
-                    <div key={`${i}-${part.title}`}>
+                  {concert.programs.map((section, i) => (
+                    <div key={`${i}-${section.title}`}>
                       <div className="font-serif mb-3 text-[14px] tracking-[0.06em] text-accent-soft">
-                        {part.title}
+                        {section.title}
                       </div>
                       <ol className="m-0 list-none p-0">
-                        {part.programs.map((song, j) => (
+                        {section.songs.map((song, j) => (
                           <li
-                            key={`${j}-${song}`}
+                            key={`${j}-${song.title}`}
                             className="grid grid-cols-[28px_1fr] items-baseline gap-3 border-b border-[rgba(232,221,201,0.15)] py-2.5"
                           >
                             <span className="font-eng text-[11px] tracking-[0.14em] text-accent-soft">
                               {String(j + 1).padStart(2, "0")}
                             </span>
-                            <span className="text-[14px] leading-[1.5]">
-                              {song}
-                            </span>
+                            <div>
+                              <div className="text-[14px] leading-[1.5]">
+                                {song.title}
+                              </div>
+                              {song.note && (
+                                <div className="mt-1 text-[10px] leading-[1.6] text-[rgba(245,239,230,0.5)]">
+                                  {song.note}
+                                </div>
+                              )}
+                            </div>
                           </li>
                         ))}
                       </ol>

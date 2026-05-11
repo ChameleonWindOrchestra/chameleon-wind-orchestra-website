@@ -1,8 +1,13 @@
 import { getMicroCmsClient, type MicroCmsImage } from "@/lib/microcms";
 
-export type ConcertPart = {
+export type ConcertSong = {
   title: string;
-  programs: string[];
+  note?: string;
+};
+
+export type ConcertProgramSection = {
+  title: string;
+  songs: ConcertSong[];
 };
 
 export type ConcertImage = MicroCmsImage;
@@ -19,14 +24,20 @@ export type Concert = {
   fee?: number;
   note?: string;
   image?: ConcertImage;
-  parts?: ConcertPart[];
+  programs?: ConcertProgramSection[];
   isFeaturedOverride?: boolean;
 };
 
-type CmsConcertPart = {
+type CmsSong = {
   fieldId?: string;
   title: string;
-  programs?: Array<{ fieldId?: string; title: string }>;
+  note?: string;
+};
+
+type CmsProgramSection = {
+  fieldId?: string;
+  title: string;
+  songs?: CmsSong[];
 };
 
 type CmsConcert = {
@@ -46,7 +57,7 @@ type CmsConcert = {
   note?: string;
   isFeaturedOverride?: boolean;
   image?: MicroCmsImage;
-  parts?: CmsConcertPart[];
+  programs?: CmsProgramSection[];
 };
 
 const ENDPOINT = "concerts";
@@ -65,9 +76,12 @@ function mapCmsToConcert(cms: CmsConcert): Concert {
     note: cms.note,
     image: cms.image,
     isFeaturedOverride: cms.isFeaturedOverride,
-    parts: cms.parts?.map((p) => ({
-      title: p.title,
-      programs: (p.programs ?? []).map((prog) => prog.title),
+    programs: cms.programs?.map((section) => ({
+      title: section.title,
+      songs: (section.songs ?? []).map((song) => ({
+        title: song.title,
+        note: song.note,
+      })),
     })),
   };
 }
