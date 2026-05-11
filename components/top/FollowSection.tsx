@@ -66,9 +66,16 @@ export function FollowSection() {
                   </div>
                   <span
                     aria-hidden="true"
-                    className="font-eng text-[16px] text-accent"
+                    className="flex h-4 w-4 items-center justify-center text-accent"
                   >
-                    ↗
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                   </span>
                 </a>
               ))}
