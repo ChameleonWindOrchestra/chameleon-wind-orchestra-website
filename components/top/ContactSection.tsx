@@ -129,11 +129,6 @@ function ThankYouMessage({ onReset }: { onReset: () => void }) {
       <p className="font-serif m-0 text-[20px] leading-[1.7] text-ink md:text-[22px]">
         お問い合わせを受け付けました
       </p>
-      <p className="mt-4 text-[13px] leading-[2.1] text-ink-3">
-        内容を確認のうえ、通常 2〜3 営業日以内にご返信いたします。
-        <br />
-        しばらく経っても返信がない場合は、お手数ですが再度ご連絡ください。
-      </p>
       <button
         type="button"
         onClick={onReset}
