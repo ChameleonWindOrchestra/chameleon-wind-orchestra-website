@@ -12,9 +12,11 @@ export const metadata = {
     "カメレオン吹奏楽団の次回公演および過去の出演履歴をご案内しています。",
 };
 
-export default function ConcertsPage() {
-  const featured = getFeaturedConcert();
-  const past = getPastConcerts();
+export default async function ConcertsPage() {
+  const [featured, past] = await Promise.all([
+    getFeaturedConcert(),
+    getPastConcerts(),
+  ]);
 
   return (
     <>
