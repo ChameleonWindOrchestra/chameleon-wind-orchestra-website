@@ -4,8 +4,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TextLink } from "@/components/ui/TextLink";
 import { getFeaturedMembers } from "@/lib/data/members";
 
-export function MembersSection() {
-  const items = getFeaturedMembers();
+export async function MembersSection() {
+  const items = await getFeaturedMembers();
 
   return (
     <section className="bg-bg-soft px-8 py-24 md:px-20 md:py-[120px]">
@@ -18,10 +18,10 @@ export function MembersSection() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {items.map((m) => (
             <article key={m.id} className="border border-line bg-bg-card">
-              {m.portraitSrc ? (
-                <div className="relative aspect-[4/5]">
+              {m.image ? (
+                <div className="relative aspect-square">
                   <Image
-                    src={m.portraitSrc}
+                    src={m.image.url}
                     alt={m.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
@@ -29,15 +29,13 @@ export function MembersSection() {
                   />
                 </div>
               ) : (
-                <Placeholder ratio="4/5" label="portrait" />
+                <Placeholder ratio="1/1" label="portrait" />
               )}
 
               <div className="px-6 pb-6 pt-5">
-                {m.role && (
-                  <div className="font-eng mb-2.5 text-[11px] uppercase tracking-[0.18em] text-accent">
-                    {m.role}
-                  </div>
-                )}
+                <div className="font-eng mb-2.5 text-[11px] uppercase tracking-[0.18em] text-accent">
+                  {m.role}
+                </div>
                 <div className="font-serif text-[16px] font-medium leading-[1.5] text-ink">
                   {m.name}
                 </div>
