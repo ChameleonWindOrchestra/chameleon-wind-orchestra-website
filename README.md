@@ -1,5 +1,20 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment variables
+
+Copy `.env.example` to `.env.local` and fill in the values:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Description |
+|---|---|
+| `MICROCMS_SERVICE_DOMAIN` | MicroCMS のサービスドメイン (`chameleon-wind-orchestra`) |
+| `MICROCMS_API_KEY` | MicroCMS の管理画面で発行する API キー (Service settings → API keys)。read-only 推奨 |
+
+`.env.local` は git 管理外。Vercel デプロイでは Project Settings → Environment Variables に同じ値を登録する。
+
 ## Getting Started
 
 First, run the development server:
