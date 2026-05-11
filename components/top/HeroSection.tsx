@@ -1,10 +1,13 @@
 import { HeroSlideshow } from "./HeroSlideshow";
+import { getHeroImages } from "@/lib/data/heroImages";
 
-export function HeroSection() {
+export async function HeroSection() {
+  const heroImages = await getHeroImages();
+
   return (
     <section className="relative w-full">
       <div className="relative w-full overflow-hidden h-[min(80vh,720px)] min-h-[480px]">
-        <HeroSlideshow />
+        <HeroSlideshow heroImages={heroImages} />
 
         <div
           className="absolute inset-0 pointer-events-none"
