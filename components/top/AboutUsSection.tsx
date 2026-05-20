@@ -17,7 +17,7 @@ export function AboutUsSection() {
             className="w-full max-w-[200px] h-auto md:max-w-[240px]"
           />
         </div>
-        <div>
+        <div className="md:self-center">
           <p className="font-serif italic text-[18px] md:text-[20px] text-ink leading-[1.7] tracking-[0.04em] font-medium m-0 mb-7">
             ―吹奏楽の可能性を感動体験に―
           </p>
