@@ -97,7 +97,7 @@ export async function FeaturedConcertSection() {
                               {song.title}
                             </div>
                             {song.note && (
-                              <div className="mt-1 text-[9px] leading-[1.5] text-[rgba(245,239,230,0.5)]">
+                              <div className="mt-1 text-[8px] leading-[1.5] text-[rgba(245,239,230,0.5)]">
                                 {song.note}
                               </div>
                             )}
