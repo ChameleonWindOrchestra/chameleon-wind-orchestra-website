@@ -80,9 +80,8 @@ export function Footer() {
 
         <div className="h-px bg-[#e8ddc9]/20 mb-6" />
 
-        <div className="flex justify-between text-[10px] text-[#e8ddc9]/50">
+        <div className="text-[10px] text-[#e8ddc9]/50">
           <span className="font-mono tracking-wider">© 2026 Chameleon Wind Orchestra</span>
-          <span className="font-mono tracking-wider">PRIVACY · TERMS</span>
         </div>
       </div>
     </footer>
