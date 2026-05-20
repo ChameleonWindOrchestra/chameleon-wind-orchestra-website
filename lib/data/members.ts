@@ -53,13 +53,14 @@ function sortByRole(members: Member[]): Member[] {
   );
 }
 
+const FEATURED_MEMBER_COUNT = 6;
+
 export async function getFeaturedMembers(): Promise<Member[]> {
   const client = getMicroCmsClient();
   const res = await client.getList<CmsMember>({
     endpoint: ENDPOINT,
     queries: {
-      filters: "role[contains]団長[or]role[contains]指揮者",
-      limit: 10,
+      limit: FEATURED_MEMBER_COUNT,
     },
   });
   return sortByRole(res.contents.map(mapCmsToMember));

@@ -15,7 +15,7 @@ export async function MembersSection() {
           <TextLink href="/members">Members 一覧</TextLink>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-6 lg:gap-4">
           {items.map((m) => (
             <article key={m.id} className="border border-line bg-bg-card">
               {m.image ? (
@@ -24,7 +24,7 @@ export async function MembersSection() {
                     src={m.image.url}
                     alt={m.name}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
                     className="object-cover"
                   />
                 </div>
@@ -32,42 +32,26 @@ export async function MembersSection() {
                 <Placeholder ratio="1/1" label="portrait" />
               )}
 
-              <div className="px-6 pb-6 pt-5">
-                <div className="font-eng mb-2.5 text-[11px] uppercase tracking-[0.18em] text-accent">
+              <div className="px-4 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5 lg:px-3 lg:pb-4 lg:pt-3">
+                <div className="font-eng mb-2 text-[10px] uppercase tracking-[0.18em] text-accent sm:mb-2.5 sm:text-[11px] lg:mb-1.5 lg:text-[9px]">
                   {m.role}
                 </div>
-                <div className="font-serif text-[16px] font-medium leading-[1.5] text-ink">
+                <div className="font-serif text-[14px] font-medium leading-[1.5] text-ink sm:text-[16px] lg:text-[13px]">
                   {m.name}
                 </div>
                 {m.kana && (
-                  <div className="font-mono mt-1 text-[10px] text-ink-mute">
+                  <div className="font-mono mt-1 text-[9px] text-ink-mute sm:text-[10px] lg:text-[8px]">
                     {m.kana}
                   </div>
                 )}
                 {m.instrument && (
-                  <div className="mt-3 text-[12px] text-ink-3">
+                  <div className="mt-2 text-[11px] text-ink-3 sm:mt-3 sm:text-[12px] lg:mt-2 lg:text-[10px]">
                     担当: {m.instrument}
                   </div>
                 )}
               </div>
             </article>
           ))}
-
-          <article
-            aria-hidden="true"
-            className="flex min-h-[280px] items-center justify-center border border-dashed border-line bg-bg px-6 py-12 sm:col-span-2 md:col-span-1"
-          >
-            <div className="text-center">
-              <div className="font-eng mb-3 text-[11px] uppercase tracking-[0.22em] text-accent">
-                More coming soon
-              </div>
-              <p className="font-serif m-0 text-[14px] leading-[1.8] text-ink">
-                他のメンバーも
-                <br />
-                順次ご紹介します
-              </p>
-            </div>
-          </article>
         </div>
       </div>
     </section>
