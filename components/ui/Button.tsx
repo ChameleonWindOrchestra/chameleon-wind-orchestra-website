@@ -21,6 +21,7 @@ type AsButton = CommonProps & {
   href?: never;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
 export type ButtonProps = AsLink | AsButton;
@@ -41,7 +42,7 @@ const VARIANT_CLASS: Record<Variant, string> = {
 };
 
 const BASE_CLASS =
-  "inline-flex items-center gap-3 tracking-[0.12em] font-medium cursor-pointer transition-colors duration-200";
+  "inline-flex items-center gap-3 tracking-[0.12em] font-medium cursor-pointer transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60";
 
 export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", icon, children, className = "" } = props;
@@ -69,7 +70,12 @@ export function Button(props: ButtonProps) {
   }
 
   return (
-    <button type={props.type ?? "button"} onClick={props.onClick} className={cls}>
+    <button
+      type={props.type ?? "button"}
+      onClick={props.onClick}
+      disabled={props.disabled}
+      className={cls}
+    >
       {inner}
     </button>
   );
