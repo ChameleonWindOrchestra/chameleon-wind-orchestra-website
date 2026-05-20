@@ -87,28 +87,23 @@ export async function FeaturedConcertSection() {
                       <div className="font-serif mb-3 text-[14px] tracking-[0.06em] text-accent-soft">
                         {section.title}
                       </div>
-                      <ol className="m-0 list-none p-0">
+                      <ul className="m-0 list-none p-0">
                         {section.songs.map((song, j) => (
                           <li
                             key={`${j}-${song.title}`}
-                            className="grid grid-cols-[28px_1fr] items-baseline gap-3 border-b border-[rgba(232,221,201,0.15)] py-2.5"
+                            className="border-b border-[rgba(232,221,201,0.15)] py-2.5"
                           >
-                            <span className="font-eng text-[11px] tracking-[0.14em] text-accent-soft">
-                              {String(j + 1).padStart(2, "0")}
-                            </span>
-                            <div>
-                              <div className="text-[14px] leading-[1.5]">
-                                {song.title}
-                              </div>
-                              {song.note && (
-                                <div className="mt-1 text-[10px] leading-[1.6] text-[rgba(245,239,230,0.5)]">
-                                  {song.note}
-                                </div>
-                              )}
+                            <div className="max-w-[20ch] text-[12px] leading-[1.55]">
+                              {song.title}
                             </div>
+                            {song.note && (
+                              <div className="mt-1 max-w-[26ch] text-[9px] leading-[1.5] text-[rgba(245,239,230,0.5)]">
+                                {song.note}
+                              </div>
+                            )}
                           </li>
                         ))}
-                      </ol>
+                      </ul>
                     </div>
                   ))}
                 </div>
