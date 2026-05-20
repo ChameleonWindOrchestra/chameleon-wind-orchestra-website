@@ -154,8 +154,13 @@ function ExternalAccessLink({
       className="inline-flex items-center gap-2 border border-[rgba(232,221,201,0.3)] px-5 py-2.5 text-[12px] tracking-[0.12em] text-[#F5EFE6] transition-colors hover:border-accent-soft hover:text-accent-soft"
     >
       {children}
-      <span className="font-eng" aria-hidden="true">
-        ↗
+      <span
+        aria-hidden="true"
+        className="flex h-3.5 w-3.5 items-center justify-center"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z" />
+        </svg>
       </span>
     </a>
   );
