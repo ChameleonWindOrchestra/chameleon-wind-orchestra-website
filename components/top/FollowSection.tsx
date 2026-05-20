@@ -3,7 +3,7 @@ import { SnsIcon } from "@/components/ui/SnsIcon";
 import { getSiteSettings } from "@/lib/data/siteSettings";
 
 export function FollowSection() {
-  const { youtubeLatest, snsLinks } = getSiteSettings();
+  const { snsLinks } = getSiteSettings();
 
   return (
     <section className="bg-bg-soft px-8 py-24 md:px-20 md:py-[120px]">
@@ -13,31 +13,19 @@ export function FollowSection() {
         <div className="grid grid-cols-1 items-start gap-14 md:grid-cols-[1.5fr_1fr]">
           <div>
             <div className="relative w-full overflow-hidden border border-line bg-brown-deep aspect-video">
-              {youtubeLatest.embedUrl ? (
-                <iframe
-                  src={youtubeLatest.embedUrl}
-                  title="最新動画"
-                  className="absolute inset-0 h-full w-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              ) : (
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                >
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-                    <svg
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="#fff"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-5"
+              >
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
                 </div>
-              )}
+                <div className="font-eng text-[11px] uppercase tracking-[0.24em] text-accent-soft">
+                  YouTube — Coming Soon
+                </div>
+              </div>
             </div>
           </div>
 
