@@ -20,13 +20,6 @@ export async function FeaturedConcertSection() {
 
   return (
     <section className="relative overflow-hidden border-t border-line px-8 py-24 md:px-20 md:py-[140px]">
-      <div
-        aria-hidden="true"
-        className="font-eng pointer-events-none absolute -right-5 top-[60px] text-[120px] uppercase tracking-[0.04em] leading-none text-line-soft md:text-[220px]"
-      >
-        Concert
-      </div>
-
       <div className="relative mx-auto max-w-[1280px]">
         <SectionHeading num="— 01" en="Concerts" jp="演奏会のご案内" />
 
