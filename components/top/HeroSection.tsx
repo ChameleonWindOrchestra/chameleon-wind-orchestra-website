@@ -6,9 +6,8 @@ export async function HeroSection() {
 
   return (
     <section className="relative w-full">
-      <div className="relative w-full overflow-hidden h-[min(80vh,720px)] min-h-[480px]">
+      <div className="relative w-full overflow-hidden bg-brown-deep aspect-[4/5] sm:aspect-[16/10] md:aspect-auto md:h-[min(80vh,720px)] md:min-h-[480px]">
         <HeroSlideshow heroImages={heroImages} />
-
       </div>
     </section>
   );
