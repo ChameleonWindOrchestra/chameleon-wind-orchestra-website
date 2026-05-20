@@ -93,11 +93,11 @@ export async function FeaturedConcertSection() {
                             key={`${j}-${song.title}`}
                             className="border-b border-[rgba(232,221,201,0.15)] py-2.5"
                           >
-                            <div className="max-w-[20ch] text-[12px] leading-[1.55]">
+                            <div className="text-[12px] leading-[1.55]">
                               {song.title}
                             </div>
                             {song.note && (
-                              <div className="mt-1 max-w-[26ch] text-[9px] leading-[1.5] text-[rgba(245,239,230,0.5)]">
+                              <div className="mt-1 text-[9px] leading-[1.5] text-[rgba(245,239,230,0.5)]">
                                 {song.note}
                               </div>
                             )}
