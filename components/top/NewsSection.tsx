@@ -3,8 +3,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TextLink } from "@/components/ui/TextLink";
 import { getLatestNews } from "@/lib/data/news";
 
-export function NewsSection() {
-  const items = getLatestNews(6);
+export async function NewsSection() {
+  const items = await getLatestNews(6);
   if (items.length === 0) return null;
 
   return (
