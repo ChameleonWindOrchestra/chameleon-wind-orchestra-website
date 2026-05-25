@@ -16,11 +16,15 @@ const FIELD_LABEL_CLASS =
   "font-eng text-[11px] uppercase tracking-[0.18em] text-ink-mute";
 
 const FIELD_INPUT_CLASS =
-  "w-full border border-line bg-bg-card px-5 py-4 text-[14px] text-ink leading-[1.6] outline-none transition-colors focus:border-accent placeholder:text-ink-mute";
+  "w-full border border-line bg-bg-card px-5 py-4 text-[14px] text-ink leading-[1.6] outline-none transition-colors focus:border-accent placeholder:text-ink-mute disabled:cursor-not-allowed disabled:opacity-60";
+
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
 export function ContactSection() {
   const [form, setForm] = useState<FormState>(INITIAL);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -28,10 +32,56 @@ export function ContactSection() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("[Contact] submit", form);
-    setSubmitted(true);
+    if (submitting) return;
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setErrorMessage(
+        "送信先の設定が完了していません。サイト管理者へお問い合わせください。",
+      );
+      return;
+    }
+
+    setSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `[CWO サイト] ${form.name} 様からのお問い合わせ`,
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+
+      const data = (await res.json().catch(() => null)) as
+        | { success?: boolean; message?: string }
+        | null;
+
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.message ?? "送信に失敗しました");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "送信に失敗しました。時間をおいて再度お試しください。";
+      setErrorMessage(message);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -56,7 +106,12 @@ export function ContactSection() {
               }}
             />
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate={false}>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6"
+              noValidate={false}
+              aria-busy={submitting}
+            >
               <label className="flex flex-col gap-3">
                 <span className={FIELD_LABEL_CLASS}>
                   Name <span className="text-accent">*</span>
@@ -69,6 +124,7 @@ export function ContactSection() {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="お名前"
+                  disabled={submitting}
                   className={FIELD_INPUT_CLASS}
                 />
               </label>
@@ -85,6 +141,7 @@ export function ContactSection() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="example@example.com"
+                  disabled={submitting}
                   className={FIELD_INPUT_CLASS}
                 />
               </label>
@@ -100,13 +157,29 @@ export function ContactSection() {
                   value={form.message}
                   onChange={handleChange}
                   placeholder="お問い合わせ内容をご記入ください"
+                  disabled={submitting}
                   className={`${FIELD_INPUT_CLASS} resize-y`}
                 />
               </label>
 
+              {errorMessage && (
+                <p
+                  role="alert"
+                  className="m-0 border border-accent bg-bg-card px-4 py-3 text-[13px] leading-[1.6] text-accent"
+                >
+                  {errorMessage}
+                </p>
+              )}
+
               <div className="mt-2 flex items-center gap-4">
-                <Button variant="primary" size="lg" icon type="submit">
-                  送信する
+                <Button
+                  variant="primary"
+                  size="lg"
+                  icon
+                  type="submit"
+                  disabled={submitting}
+                >
+                  {submitting ? "送信中..." : "送信する"}
                 </Button>
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-mute">
                   * 必須項目
