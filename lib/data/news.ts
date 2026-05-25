@@ -1,63 +1,86 @@
+import { getMicroCmsClient, type MicroCmsImage } from "@/lib/microcms";
+
+export type NewsCategory = "CONCERT" | "MEMBER" | "MEDIA" | "NOTICE";
+
 export type NewsItem = {
   id: string;
   date: string;
-  category: string;
+  category: NewsCategory;
   title: string;
   imageSrc: string | null;
   href: string;
 };
 
-export const placeholderNews: NewsItem[] = [
-  {
-    id: "placeholder-1",
-    date: "—.—.—",
-    category: "Coming Soon",
-    title: "お知らせは現在準備中です",
-    imageSrc: null,
-    href: "/news",
-  },
-  {
-    id: "placeholder-2",
-    date: "—.—.—",
-    category: "Coming Soon",
-    title: "お知らせは現在準備中です",
-    imageSrc: null,
-    href: "/news",
-  },
-  {
-    id: "placeholder-3",
-    date: "—.—.—",
-    category: "Coming Soon",
-    title: "お知らせは現在準備中です",
-    imageSrc: null,
-    href: "/news",
-  },
-  {
-    id: "placeholder-4",
-    date: "—.—.—",
-    category: "Coming Soon",
-    title: "お知らせは現在準備中です",
-    imageSrc: null,
-    href: "/news",
-  },
-  {
-    id: "placeholder-5",
-    date: "—.—.—",
-    category: "Coming Soon",
-    title: "お知らせは現在準備中です",
-    imageSrc: null,
-    href: "/news",
-  },
-  {
-    id: "placeholder-6",
-    date: "—.—.—",
-    category: "Coming Soon",
-    title: "お知らせは現在準備中です",
-    imageSrc: null,
-    href: "/news",
-  },
+type CmsNews = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  date: string;
+  category: string[] | string;
+  title: string;
+  body?: string;
+  eyecatch?: MicroCmsImage;
+};
+
+const ENDPOINT = "news";
+
+const KNOWN_CATEGORIES: readonly NewsCategory[] = [
+  "CONCERT",
+  "MEMBER",
+  "MEDIA",
+  "NOTICE",
 ];
 
-export function getLatestNews(n: number): NewsItem[] {
-  return placeholderNews.slice(0, n);
+function normalizeCategory(raw: string[] | string | undefined): NewsCategory {
+  const candidate = Array.isArray(raw) ? raw[0] : raw;
+  if (candidate && (KNOWN_CATEGORIES as readonly string[]).includes(candidate)) {
+    return candidate as NewsCategory;
+  }
+  return "NOTICE";
+}
+
+function formatNewsDate(isoDate: string): string {
+  const d = new Date(isoDate);
+  if (Number.isNaN(d.getTime())) return isoDate;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}.${mm}.${dd}`;
+}
+
+function mapCmsToNewsItem(cms: CmsNews): NewsItem {
+  return {
+    id: cms.id,
+    date: formatNewsDate(cms.date),
+    category: normalizeCategory(cms.category),
+    title: cms.title,
+    imageSrc: cms.eyecatch?.url ?? null,
+    href: `/news/${cms.id}`,
+  };
+}
+
+export async function getLatestNews(limit: number): Promise<NewsItem[]> {
+  const client = getMicroCmsClient();
+  const res = await client.getList<CmsNews>({
+    endpoint: ENDPOINT,
+    queries: {
+      orders: "-date",
+      limit,
+    },
+  });
+  return res.contents.map(mapCmsToNewsItem);
+}
+
+export async function getAllNews(): Promise<NewsItem[]> {
+  const client = getMicroCmsClient();
+  const res = await client.getList<CmsNews>({
+    endpoint: ENDPOINT,
+    queries: {
+      orders: "-date",
+      limit: 100,
+    },
+  });
+  return res.contents.map(mapCmsToNewsItem);
 }
