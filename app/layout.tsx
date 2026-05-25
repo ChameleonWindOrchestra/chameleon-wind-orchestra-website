@@ -38,10 +38,50 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://chameleon-wind-orchestra.com";
+const SITE_NAME = "カメレオン吹奏楽団 — Chameleon Wind Orchestra";
+const SITE_DESCRIPTION =
+  "大阪・池田を拠点に活動するアマチュア吹奏楽団。色彩豊かな音楽を、丁寧にお届けします。";
+
 export const metadata: Metadata = {
-  title: "カメレオン吹奏楽団 — Chameleon Wind Orchestra",
-  description:
-    "大阪・池田を拠点に活動するアマチュア吹奏楽団。色彩豊かな音楽を、丁寧にお届けします。",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "カメレオン吹奏楽団",
+    "Chameleon Wind Orchestra",
+    "吹奏楽",
+    "大阪",
+    "池田",
+    "アマチュア吹奏楽",
+  ],
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
 };
 
 export default function RootLayout({

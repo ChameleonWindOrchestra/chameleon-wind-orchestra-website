@@ -7,7 +7,7 @@ import {
 } from "@/lib/data/concerts";
 
 export const metadata = {
-  title: "演奏会情報 | カメレオン吹奏楽団",
+  title: "演奏会情報",
   description:
     "カメレオン吹奏楽団の次回公演および過去の出演履歴をご案内しています。",
 };

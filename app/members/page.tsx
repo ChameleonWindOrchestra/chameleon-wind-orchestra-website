@@ -2,7 +2,7 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { TextLink } from "@/components/ui/TextLink";
 
 export const metadata = {
-  title: "団員紹介 | カメレオン吹奏楽団",
+  title: "団員紹介",
   description:
     "カメレオン吹奏楽団のメンバー紹介。指揮者・木管・金管・打楽器の各パートで活動するメンバーをご紹介します。",
 };

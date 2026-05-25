@@ -2,7 +2,7 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { TextLink } from "@/components/ui/TextLink";
 
 export const metadata = {
-  title: "お知らせ | カメレオン吹奏楽団",
+  title: "お知らせ",
   description:
     "カメレオン吹奏楽団からのお知らせ。演奏会情報、メンバー募集、メディア掲載など。",
 };
