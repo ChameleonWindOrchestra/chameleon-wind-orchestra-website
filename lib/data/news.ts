@@ -21,7 +21,9 @@ type CmsNews = {
   category: string[] | string;
   title: string;
   body?: string;
+  // MicroCMS 側の画像フィールド名が他エンドポイント(image)と異なる可能性があるため両対応
   eyecatch?: MicroCmsImage;
+  image?: MicroCmsImage;
 };
 
 const ENDPOINT = "news";
@@ -56,7 +58,7 @@ function mapCmsToNewsItem(cms: CmsNews): NewsItem {
     date: formatNewsDate(cms.date),
     category: normalizeCategory(cms.category),
     title: cms.title,
-    imageSrc: cms.eyecatch?.url ?? null,
+    imageSrc: cms.eyecatch?.url ?? cms.image?.url ?? null,
     href: `/news/${cms.id}`,
   };
 }
