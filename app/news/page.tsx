@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { TextLink } from "@/components/ui/TextLink";
 import { getAllNews } from "@/lib/data/news";
@@ -37,11 +38,12 @@ export default async function NewsPage() {
           ) : (
             <ul className="m-0 list-none border-t border-line p-0">
               {items.map((n) => (
-                <li
-                  key={n.id}
-                  className="grid grid-cols-[80px_1fr] items-center gap-4 border-b border-line py-5 md:grid-cols-[112px_1fr] md:gap-6 md:py-6"
-                >
-                  <div className="relative aspect-[3/2] overflow-hidden bg-bg-soft">
+                <li key={n.id} className="border-b border-line">
+                  <Link
+                    href={n.href}
+                    className="group grid grid-cols-[80px_1fr] items-center gap-4 py-5 transition-colors md:grid-cols-[112px_1fr] md:gap-6 md:py-6"
+                  >
+                    <div className="relative aspect-[3/2] overflow-hidden bg-bg-soft">
                     {n.imageSrc ? (
                       <Image
                         src={n.imageSrc}
@@ -72,10 +74,11 @@ export default async function NewsPage() {
                         {n.category}
                       </span>
                     </div>
-                    <h2 className="font-serif m-0 text-[14px] font-medium leading-[1.6] text-ink md:text-[16px]">
+                    <h2 className="font-serif m-0 text-[14px] font-medium leading-[1.6] text-ink transition-colors group-hover:text-accent md:text-[16px]">
                       {n.title}
                     </h2>
                   </div>
+                  </Link>
                 </li>
               ))}
             </ul>

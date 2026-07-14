@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TextLink } from "@/components/ui/TextLink";
 import { getLatestNews } from "@/lib/data/news";
