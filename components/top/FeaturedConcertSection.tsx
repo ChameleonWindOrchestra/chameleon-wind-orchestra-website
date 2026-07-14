@@ -25,7 +25,7 @@ export async function FeaturedConcertSection() {
 
         <div className="grid grid-cols-1 items-stretch bg-brown-deep text-[#F5EFE6] md:grid-cols-[1.2fr_1fr]">
           <div className="px-8 py-12 md:px-16 md:py-16">
-            <h3 className="font-serif m-0 whitespace-pre-line text-[36px] font-medium leading-[1.4] md:text-[44px]">
+            <h3 className="font-serif m-0 whitespace-pre-line text-[26px] font-medium leading-[1.4] sm:text-[36px] md:text-[44px] [word-break:auto-phrase]">
               {concert.title}
             </h3>
             {concert.subtitle && (

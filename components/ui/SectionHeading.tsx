@@ -9,7 +9,7 @@ export function SectionHeading({ jp, en, num, align = "left" }: Props) {
   return (
     <div
       className={[
-        "flex items-baseline gap-8 mb-12",
+        "flex items-baseline gap-4 sm:gap-8 mb-12",
         align === "center" ? "justify-center" : "justify-start",
       ].join(" ")}
     >
@@ -22,7 +22,7 @@ export function SectionHeading({ jp, en, num, align = "left" }: Props) {
         <div className="font-eng text-[14px] text-ink-mute uppercase mb-3 tracking-[0.18em]">
           {en}
         </div>
-        <h2 className="font-serif text-[40px] m-0 font-medium text-ink leading-[1.4]">
+        <h2 className="font-serif text-[30px] sm:text-[40px] m-0 font-medium text-ink leading-[1.4] [word-break:auto-phrase]">
           {jp}
         </h2>
       </div>
