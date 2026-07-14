@@ -18,45 +18,47 @@ export async function NewsSection() {
 
         <ul className="m-0 list-none border-t border-line p-0">
           {items.map((n) => (
-            <li
-              key={n.id}
-              className="grid grid-cols-[72px_1fr] items-center gap-4 border-b border-line py-4 md:grid-cols-[96px_1fr] md:gap-6 md:py-5"
-            >
-              <div className="relative aspect-[3/2] overflow-hidden bg-bg-soft">
-                {n.imageSrc ? (
-                  <Image
-                    src={n.imageSrc}
-                    alt={n.title}
-                    fill
-                    sizes="96px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
+            <li key={n.id} className="border-b border-line">
+              <Link
+                href={n.href}
+                className="group grid grid-cols-[72px_1fr] items-center gap-4 py-4 transition-colors md:grid-cols-[96px_1fr] md:gap-6 md:py-5"
+              >
+                <div className="relative aspect-[3/2] overflow-hidden bg-bg-soft">
+                  {n.imageSrc ? (
                     <Image
-                      src="/assets/logo_top.svg"
-                      alt=""
-                      width={457}
-                      height={170}
-                      unoptimized
-                      className="h-6 w-auto opacity-30 md:h-7"
+                      src={n.imageSrc}
+                      alt={n.title}
+                      fill
+                      sizes="96px"
+                      className="object-cover"
                     />
-                  </div>
-                )}
-              </div>
-              <div className="min-w-0">
-                <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className="font-mono text-[11px] text-ink-mute">
-                    {n.date}
-                  </span>
-                  <span className="border border-accent px-2 py-[2px] text-[9px] uppercase tracking-[0.12em] text-accent md:text-[10px]">
-                    {n.category}
-                  </span>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Image
+                        src="/assets/logo_top.svg"
+                        alt=""
+                        width={457}
+                        height={170}
+                        unoptimized
+                        className="h-6 w-auto opacity-30 md:h-7"
+                      />
+                    </div>
+                  )}
                 </div>
-                <h4 className="font-serif m-0 text-[13px] font-medium leading-[1.55] text-ink md:text-[15px]">
-                  {n.title}
-                </h4>
-              </div>
+                <div className="min-w-0">
+                  <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="font-mono text-[11px] text-ink-mute">
+                      {n.date}
+                    </span>
+                    <span className="border border-accent px-2 py-[2px] text-[9px] uppercase tracking-[0.12em] text-accent md:text-[10px]">
+                      {n.category}
+                    </span>
+                  </div>
+                  <h4 className="font-serif m-0 text-[13px] font-medium leading-[1.55] text-ink transition-colors group-hover:text-accent md:text-[15px]">
+                    {n.title}
+                  </h4>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
