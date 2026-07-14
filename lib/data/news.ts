@@ -11,6 +11,15 @@ export type NewsItem = {
   href: string;
 };
 
+export type NewsDetail = {
+  id: string;
+  date: string;
+  category: NewsCategory;
+  title: string;
+  imageSrc: string | null;
+  body: string;
+};
+
 type CmsNews = {
   id: string;
   createdAt: string;
@@ -85,4 +94,26 @@ export async function getAllNews(): Promise<NewsItem[]> {
     },
   });
   return res.contents.map(mapCmsToNewsItem);
+}
+
+// 単一のお知らせ記事を取得する。存在しない ID の場合は getListDetail が
+// 例外を投げるため、null を返して呼び出し側で notFound() できるようにする。
+export async function getNewsById(id: string): Promise<NewsDetail | null> {
+  const client = getMicroCmsClient();
+  try {
+    const cms = await client.getListDetail<CmsNews>({
+      endpoint: ENDPOINT,
+      contentId: id,
+    });
+    return {
+      id: cms.id,
+      date: formatNewsDate(cms.date),
+      category: normalizeCategory(cms.category),
+      title: cms.title,
+      imageSrc: cms.eyecatch?.url ?? cms.image?.url ?? null,
+      body: cms.body ?? "",
+    };
+  } catch {
+    return null;
+  }
 }
