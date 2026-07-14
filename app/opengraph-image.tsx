@@ -35,14 +35,13 @@ export default async function OpengraphImage() {
           width: "100%",
           height: "100%",
           background:
-            "linear-gradient(135deg, #1F1A14 0%, #2A2118 60%, #3A2D1E 100%)",
-          color: "#F5EFE6",
+            "linear-gradient(135deg, #faf7f2 0%, #f5efe6 60%, #fffefb 100%)",
+          color: "#1F1A14",
           padding: "72px",
           gap: 36,
         }}
       >
         {logoSrc ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={logoSrc}
             width={460}
@@ -57,7 +56,7 @@ export default async function OpengraphImage() {
               fontSize: 96,
               fontWeight: 600,
               letterSpacing: 2,
-              color: "#F5EFE6",
+              color: "#1F1A14",
             }}
           >
             カメレオン吹奏楽団
@@ -79,7 +78,7 @@ export default async function OpengraphImage() {
             display: "flex",
             fontSize: 28,
             lineHeight: 1.6,
-            color: "rgba(245, 239, 230, 0.75)",
+            color: "rgba(59, 52, 42, 0.85)",
             textAlign: "center",
             maxWidth: "900px",
           }}
