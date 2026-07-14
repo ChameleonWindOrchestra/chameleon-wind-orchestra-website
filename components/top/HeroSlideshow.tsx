@@ -56,7 +56,7 @@ export function HeroSlideshow({ heroImages }: Props) {
               fill
               priority={i === 0}
               sizes="100vw"
-              className="object-contain sm:object-cover"
+              className="object-contain"
             />
           ) : (
             <Placeholder height="100%" label={s.label} />
