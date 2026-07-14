@@ -6,7 +6,7 @@ import { getAllNews } from "@/lib/data/news";
 export const metadata = {
   title: "お知らせ",
   description:
-    "カメレオン吹奏楽団からのお知らせ。演奏会情報、メンバー募集、メディア掲載など。",
+    "カメレオン吹奏楽団からのお知らせ。演奏会情報、メディア掲載など。",
 };
 
 export default async function NewsPage() {
@@ -17,7 +17,7 @@ export default async function NewsPage() {
       <PageIntro
         en="News"
         jp="お知らせ"
-        lead="演奏会のご案内、メンバー募集、メディア掲載など、当団からのお知らせをまとめています。"
+        lead="演奏会のご案内、メディア掲載など、当団からのお知らせをまとめています。"
       />
 
       <section className="px-8 py-20 md:px-20 md:py-[100px]">
