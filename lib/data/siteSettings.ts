@@ -1,4 +1,5 @@
 import type { SnsKind } from "@/components/ui/SnsIcon";
+import { getMicroCmsClient } from "@/lib/microcms";
 
 export type SnsLink = {
   kind: SnsKind;
@@ -48,4 +49,70 @@ export const siteSettings: SiteSettings = {
 
 export function getSiteSettings(): SiteSettings {
   return siteSettings;
+}
+
+// --- 注目のYouTube動画（microCMS 手動入稿） ---
+
+// microCMS のオブジェクト形式エンドポイント。フィールド videoUrl に通常の
+// 共有URL（youtu.be / watch?v= など）を貼ってもらう想定。
+const YOUTUBE_ENDPOINT = "youtube";
+
+type CmsYoutube = {
+  videoUrl?: string;
+  title?: string;
+};
+
+export type FeaturedYoutube = {
+  videoId: string;
+  title: string;
+};
+
+// 各種のYouTube URL（watch / youtu.be / embed / shorts）や生IDから
+// 11桁の動画IDを取り出す。取り出せなければ null。
+export function extractYoutubeId(input: string | undefined | null): string | null {
+  if (!input) return null;
+  const value = input.trim();
+  const patterns = [
+    /[?&]v=([a-zA-Z0-9_-]{11})/,
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+    /\/embed\/([a-zA-Z0-9_-]{11})/,
+    /\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const re of patterns) {
+    const m = value.match(re);
+    if (m) return m[1];
+  }
+  if (/^[a-zA-Z0-9_-]{11}$/.test(value)) return value;
+  return null;
+}
+
+// YouTube 公式 oEmbed(APIキー不要)から動画タイトルを取得。失敗時は空文字。
+async function fetchYoutubeTitle(videoId: string): Promise<string> {
+  try {
+    const res = await fetch(
+      `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`,
+    );
+    if (!res.ok) return "";
+    const data = (await res.json()) as { title?: unknown };
+    return typeof data.title === "string" ? data.title : "";
+  } catch {
+    return "";
+  }
+}
+
+// 注目動画(ID+タイトル)を取得。microCMS の title が空なら YouTube 側の
+// タイトルで補う。エンドポイント未作成・未入稿・URL不正はすべて null を返し、
+// 呼び出し側で「Coming Soon」表示にフォールバックできるようにする。
+export async function getFeaturedYoutube(): Promise<FeaturedYoutube | null> {
+  try {
+    const client = getMicroCmsClient();
+    const data = await client.get<CmsYoutube>({ endpoint: YOUTUBE_ENDPOINT });
+    const videoId = extractYoutubeId(data.videoUrl);
+    if (!videoId) return null;
+    const manualTitle = data.title?.trim() ?? "";
+    const title = manualTitle || (await fetchYoutubeTitle(videoId));
+    return { videoId, title };
+  } catch {
+    return null;
+  }
 }
