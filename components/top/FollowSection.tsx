@@ -1,11 +1,11 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SnsIcon } from "@/components/ui/SnsIcon";
-import { getFeaturedYoutubeId, getSiteSettings } from "@/lib/data/siteSettings";
+import { getFeaturedYoutube, getSiteSettings } from "@/lib/data/siteSettings";
 import { YoutubeFacade } from "./YoutubeFacade";
 
 export async function FollowSection() {
   const { snsLinks } = getSiteSettings();
-  const youtubeId = await getFeaturedYoutubeId();
+  const youtube = await getFeaturedYoutube();
 
   return (
     <section className="bg-bg-soft px-8 py-24 md:px-20 md:py-[120px]">
@@ -15,8 +15,11 @@ export async function FollowSection() {
         <div className="grid grid-cols-1 items-start gap-14 md:grid-cols-[1.5fr_1fr]">
           <div>
             <div className="relative w-full overflow-hidden border border-line bg-brown-deep aspect-video">
-              {youtubeId ? (
-                <YoutubeFacade videoId={youtubeId} />
+              {youtube ? (
+                <YoutubeFacade
+                  videoId={youtube.videoId}
+                  title={youtube.title || "YouTube 動画"}
+                />
               ) : (
                 <div
                   aria-hidden="true"
@@ -33,6 +36,11 @@ export async function FollowSection() {
                 </div>
               )}
             </div>
+            {youtube?.title && (
+              <p className="font-serif mt-4 text-[15px] leading-[1.6] text-ink md:text-[17px]">
+                {youtube.title}
+              </p>
+            )}
           </div>
 
           <div>

@@ -59,6 +59,12 @@ const YOUTUBE_ENDPOINT = "youtube";
 
 type CmsYoutube = {
   videoUrl?: string;
+  title?: string;
+};
+
+export type FeaturedYoutube = {
+  videoId: string;
+  title: string;
 };
 
 // 各種のYouTube URL（watch / youtu.be / embed / shorts）や生IDから
@@ -80,13 +86,32 @@ export function extractYoutubeId(input: string | undefined | null): string | nul
   return null;
 }
 
-// 注目動画のIDを取得。エンドポイント未作成・未入稿・URL不正はすべて null を返し、
+// YouTube 公式 oEmbed(APIキー不要)から動画タイトルを取得。失敗時は空文字。
+async function fetchYoutubeTitle(videoId: string): Promise<string> {
+  try {
+    const res = await fetch(
+      `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`,
+    );
+    if (!res.ok) return "";
+    const data = (await res.json()) as { title?: unknown };
+    return typeof data.title === "string" ? data.title : "";
+  } catch {
+    return "";
+  }
+}
+
+// 注目動画(ID+タイトル)を取得。microCMS の title が空なら YouTube 側の
+// タイトルで補う。エンドポイント未作成・未入稿・URL不正はすべて null を返し、
 // 呼び出し側で「Coming Soon」表示にフォールバックできるようにする。
-export async function getFeaturedYoutubeId(): Promise<string | null> {
+export async function getFeaturedYoutube(): Promise<FeaturedYoutube | null> {
   try {
     const client = getMicroCmsClient();
     const data = await client.get<CmsYoutube>({ endpoint: YOUTUBE_ENDPOINT });
-    return extractYoutubeId(data.videoUrl);
+    const videoId = extractYoutubeId(data.videoUrl);
+    if (!videoId) return null;
+    const manualTitle = data.title?.trim() ?? "";
+    const title = manualTitle || (await fetchYoutubeTitle(videoId));
+    return { videoId, title };
   } catch {
     return null;
   }
