@@ -13,6 +13,10 @@ type Props = {
 // 再生時はプライバシー強化モード(youtube-nocookie.com)で埋め込む。
 export function YoutubeFacade({ videoId, title = "YouTube 動画" }: Props) {
   const [playing, setPlaying] = useState(false);
+  // 高画質(1280x720)を優先し、その画質が存在しない動画のみ hqdefault に落とす
+  const [thumb, setThumb] = useState(
+    `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+  );
 
   if (playing) {
     const src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
@@ -35,11 +39,14 @@ export function YoutubeFacade({ videoId, title = "YouTube 動画" }: Props) {
       className="group absolute inset-0 h-full w-full cursor-pointer border-0 p-0"
     >
       <Image
-        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+        src={thumb}
         alt=""
         fill
         sizes="(max-width: 768px) 100vw, 800px"
         className="object-cover"
+        onError={() =>
+          setThumb(`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`)
+        }
       />
       <span className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
         <span className="flex h-20 w-20 items-center justify-center rounded-full bg-accent shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
