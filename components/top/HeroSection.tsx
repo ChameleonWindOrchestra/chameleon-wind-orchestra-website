@@ -29,7 +29,7 @@ export async function HeroSection() {
             ―吹奏楽の可能性を感動体験に―
           </p>
           <p className="m-0 mt-3 text-[11px] md:mt-5 md:text-[14px] leading-[1.9] md:leading-[2.1] [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
-            カメレオン吹奏楽団は、舞台芸術としての吹奏楽を追求する大阪の楽団です。毎回異なるテーマに合わせて色を変え、心揺さぶる演奏をお届けします。
+            カメレオン吹奏楽団は、舞台芸術としての吹奏楽を追求する大阪の楽団です。\n毎回異なるテーマに合わせて色を変え、心揺さぶる演奏をお届けします。
           </p>
         </div>
       </div>
