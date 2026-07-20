@@ -175,3 +175,27 @@ export async function getPastConcerts(): Promise<Concert[]> {
   });
   return res.contents.map(mapCmsToConcert);
 }
+
+// 詳細ページの静的生成用。日付での絞り込みはせず全公演を返す。
+export async function getAllConcerts(): Promise<Concert[]> {
+  const client = getMicroCmsClient();
+  const res = await client.getList<CmsConcert>({
+    endpoint: ENDPOINT,
+    queries: { limit: 100 },
+  });
+  return res.contents.map(mapCmsToConcert);
+}
+
+export async function getConcertById(id: string): Promise<Concert | null> {
+  const client = getMicroCmsClient();
+  try {
+    const cms = await client.getListDetail<CmsConcert>({
+      endpoint: ENDPOINT,
+      contentId: id,
+    });
+    return mapCmsToConcert(cms);
+  } catch {
+    // 存在しない ID(404)は呼び出し側で notFound() にする
+    return null;
+  }
+}
