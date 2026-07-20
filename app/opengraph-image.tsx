@@ -83,7 +83,7 @@ export default async function OpengraphImage() {
             maxWidth: "900px",
           }}
         >
-          大阪・池田を拠点に活動するアマチュア吹奏楽団
+          毎回異なるテーマに合わせて色を変え、心揺さぶる演奏をお届けします
         </div>
       </div>
     ),
