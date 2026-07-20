@@ -48,7 +48,8 @@ type CmsConcert = {
   title: string;
   subTitle?: string;
   openAt?: string | null;
-  startAt: string;
+  startAt?: string | null;
+  isFeaturedOverride?: boolean;
   place: string;
   placeUrl?: string;
   mapUrl?: string;
@@ -66,7 +67,8 @@ function mapCmsToConcert(cms: CmsConcert): Concert {
     title: cms.title,
     subtitle: cms.subTitle,
     openAt: cms.openAt ?? null,
-    startAt: cms.startAt,
+    // startAt 未入力の公演(手動フラグ経由でのみ選ばれ得る)は openAt を日時として扱う
+    startAt: cms.startAt ?? cms.openAt ?? cms.publishedAt,
     place: cms.place,
     placeUrl: cms.placeUrl,
     mapUrl: cms.mapUrl,
@@ -85,12 +87,48 @@ function mapCmsToConcert(cms: CmsConcert): Concert {
 
 export type FeaturedConcert = Concert & { isUpcoming: boolean };
 
-// TOP に出す公演: 未来の公演があれば最も近いもの、なければ直近に終わった公演。
-// startAt が未入力のコンテンツはどの条件にも一致しないため表示されない
-// (microCMS 側で startAt を必須項目にしておくこと)。
+// 公演の実効日時: startAt と openAt のうち大きい(遅い)方。どちらも未入力なら null。
+function effectiveAt(cms: CmsConcert): number | null {
+  const times = [cms.startAt, cms.openAt]
+    .filter((v): v is string => Boolean(v))
+    .map((v) => new Date(v).getTime())
+    .filter((t) => !Number.isNaN(t));
+  return times.length > 0 ? Math.max(...times) : null;
+}
+
+// isFeaturedOverride が付いた公演を最優先で選ぶ。
+// 複数ある場合は実効日時が最も新しいもの。日時が全く入っていないものは対象外。
+// microCMS 側にフィールドが無い等でクエリが失敗した場合は undefined(自動選定へフォールバック)。
+async function getOverrideConcert(): Promise<FeaturedConcert | undefined> {
+  const client = getMicroCmsClient();
+  try {
+    const res = await client.getList<CmsConcert>({
+      endpoint: ENDPOINT,
+      queries: {
+        filters: "isFeaturedOverride[equals]true",
+        limit: 100,
+      },
+    });
+    const candidates = res.contents
+      .map((cms) => ({ cms, at: effectiveAt(cms) }))
+      .filter((c): c is { cms: CmsConcert; at: number } => c.at !== null)
+      .sort((a, b) => b.at - a.at);
+    if (candidates.length === 0) return undefined;
+    const { cms, at } = candidates[0];
+    return { ...mapCmsToConcert(cms), isUpcoming: at > Date.now() };
+  } catch {
+    return undefined;
+  }
+}
+
+// TOP に出す公演: 手動フラグ(isFeaturedOverride)があればそれを最優先。
+// なければ未来の公演のうち最も近いもの、それも無ければ直近に終わった公演。
 export async function getFeaturedConcert(): Promise<
   FeaturedConcert | undefined
 > {
+  const override = await getOverrideConcert();
+  if (override) return override;
+
   const client = getMicroCmsClient();
   const nowIso = new Date().toISOString();
 
