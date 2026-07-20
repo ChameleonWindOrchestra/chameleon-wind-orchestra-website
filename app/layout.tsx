@@ -41,7 +41,7 @@ const jetbrainsMono = JetBrains_Mono({
 const SITE_URL = "https://chameleon-wind-orchestra.com";
 const SITE_NAME = "カメレオン吹奏楽団 — Chameleon Wind Orchestra";
 const SITE_DESCRIPTION =
-  "大阪・池田を拠点に活動するアマチュア吹奏楽団。色彩豊かな音楽を、丁寧にお届けします。";
+  "カメレオン吹奏楽団は、舞台芸術としての吹奏楽を追求する大阪の楽団です。毎回異なるテーマに合わせて色を変え、心揺さぶる演奏をお届けします。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

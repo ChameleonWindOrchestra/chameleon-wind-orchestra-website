@@ -1,5 +1,4 @@
 import { HeroSection } from "@/components/top/HeroSection";
-import { AboutUsSection } from "@/components/top/AboutUsSection";
 import { FeaturedConcertSection } from "@/components/top/FeaturedConcertSection";
 import { FollowSection } from "@/components/top/FollowSection";
 import { NewsSection } from "@/components/top/NewsSection";
@@ -10,7 +9,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <AboutUsSection />
       <FeaturedConcertSection />
       <FollowSection />
       <NewsSection />
