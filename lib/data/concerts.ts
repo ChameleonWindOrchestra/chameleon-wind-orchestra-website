@@ -25,7 +25,6 @@ export type Concert = {
   note?: string;
   image?: ConcertImage;
   programs?: ConcertProgramSection[];
-  isFeaturedOverride?: boolean;
 };
 
 type CmsSong = {
@@ -55,7 +54,6 @@ type CmsConcert = {
   mapUrl?: string;
   fee?: number;
   note?: string;
-  isFeaturedOverride?: boolean;
   image?: MicroCmsImage;
   programs?: CmsProgramSection[];
 };
@@ -75,7 +73,6 @@ function mapCmsToConcert(cms: CmsConcert): Concert {
     fee: cms.fee,
     note: cms.note,
     image: cms.image,
-    isFeaturedOverride: cms.isFeaturedOverride,
     programs: cms.programs?.map((section) => ({
       title: section.title,
       songs: (section.songs ?? []).map((song) => ({
@@ -86,21 +83,17 @@ function mapCmsToConcert(cms: CmsConcert): Concert {
   };
 }
 
-export async function getFeaturedConcert(): Promise<Concert | undefined> {
+export type FeaturedConcert = Concert & { isUpcoming: boolean };
+
+// TOP に出す公演: 未来の公演があれば最も近いもの、なければ直近に終わった公演。
+// startAt が未入力のコンテンツはどの条件にも一致しないため表示されない
+// (microCMS 側で startAt を必須項目にしておくこと)。
+export async function getFeaturedConcert(): Promise<
+  FeaturedConcert | undefined
+> {
   const client = getMicroCmsClient();
-
-  const overrideRes = await client.getList<CmsConcert>({
-    endpoint: ENDPOINT,
-    queries: {
-      filters: "isFeaturedOverride[equals]true",
-      limit: 1,
-    },
-  });
-  if (overrideRes.contents.length > 0) {
-    return mapCmsToConcert(overrideRes.contents[0]);
-  }
-
   const nowIso = new Date().toISOString();
+
   const upcomingRes = await client.getList<CmsConcert>({
     endpoint: ENDPOINT,
     queries: {
@@ -110,7 +103,22 @@ export async function getFeaturedConcert(): Promise<Concert | undefined> {
     },
   });
   if (upcomingRes.contents.length > 0) {
-    return mapCmsToConcert(upcomingRes.contents[0]);
+    return { ...mapCmsToConcert(upcomingRes.contents[0]), isUpcoming: true };
+  }
+
+  const latestPastRes = await client.getList<CmsConcert>({
+    endpoint: ENDPOINT,
+    queries: {
+      filters: `startAt[less_than]${nowIso}`,
+      orders: "-startAt",
+      limit: 1,
+    },
+  });
+  if (latestPastRes.contents.length > 0) {
+    return {
+      ...mapCmsToConcert(latestPastRes.contents[0]),
+      isUpcoming: false,
+    };
   }
 
   return undefined;

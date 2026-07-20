@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import type { Concert } from "@/lib/data/concerts";
+import type { FeaturedConcert } from "@/lib/data/concerts";
 import { formatJapaneseDate, formatTime } from "@/lib/utils/date";
 import { formatFee } from "@/lib/utils/fee";
 
 type Props = {
-  concert: Concert;
+  concert: FeaturedConcert;
 };
 
 export function FeaturedHero({ concert }: Props) {
@@ -21,7 +21,11 @@ export function FeaturedHero({ concert }: Props) {
 
   return (
     <div className="mb-24 md:mb-[120px]">
-      <SectionHeading num="— 01" en="Featured" jp="次回公演" />
+      <SectionHeading
+        num="— 01"
+        en="Featured"
+        jp={concert.isUpcoming ? "次回公演" : "前回公演"}
+      />
 
       <div className="grid grid-cols-1 items-stretch gap-10 bg-brown-deep px-8 py-12 text-[#F5EFE6] md:grid-cols-[1.2fr_1fr] md:gap-16 md:px-20 md:py-[72px]">
         <div>
