@@ -19,6 +19,11 @@ export async function HeroSection() {
         style={{ aspectRatio }}
       >
         <HeroSlideshow heroImages={heroImages} />
+        {/* 左側の白文字を読ませるための暗幕。右へ透明に抜けて写真の色味を保つ */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black/45 via-black/20 to-transparent"
+        />
         <div className="pointer-events-none absolute left-6 top-1/2 z-[2] max-w-[70%] -translate-y-1/2 text-white md:left-12 md:max-w-[46%]">
           <p className="m-0 font-serif italic font-medium text-[15px] md:text-[22px] leading-[1.7] tracking-[0.04em] [text-shadow:0_1px_16px_rgba(0,0,0,0.55)]">
             ―吹奏楽の可能性を感動体験に―
