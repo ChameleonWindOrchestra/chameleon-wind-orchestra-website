@@ -19,15 +19,11 @@ export async function HeroSection() {
         style={{ aspectRatio }}
       >
         <HeroSlideshow heroImages={heroImages} />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] bg-white/30"
-        />
         <div className="pointer-events-none absolute left-6 top-1/2 z-[2] max-w-[70%] -translate-y-1/2 text-white md:left-12 md:max-w-[46%]">
-          <p className="m-0 font-serif italic font-medium text-[15px] md:text-[22px] leading-[1.7] tracking-[0.04em] [text-shadow:0_1px_14px_rgba(0,0,0,0.7)]">
+          <p className="m-0 font-serif italic font-medium text-[15px] md:text-[22px] leading-[1.7] tracking-[0.04em] [text-shadow:0_1px_16px_rgba(0,0,0,0.55)]">
             ―吹奏楽の可能性を感動体験に―
           </p>
-          <p className="m-0 mt-3 text-[11px] md:mt-5 md:text-[14px] leading-[1.9] md:leading-[2.1] [text-shadow:0_1px_10px_rgba(0,0,0,0.75)]">
+          <p className="m-0 mt-3 text-[11px] md:mt-5 md:text-[14px] leading-[1.9] md:leading-[2.1] [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">
             カメレオン吹奏楽団は、舞台芸術としての吹奏楽を追求する大阪の楽団です。毎回異なるテーマに合わせて色を変え、心揺さぶる演奏をお届けします。
           </p>
         </div>
